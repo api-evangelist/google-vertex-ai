@@ -1,0 +1,389 @@
+openapi: 3.1.0
+info:
+  title: Google Vertex AI API
+  description: >-
+    Provides programmatic access to build, deploy, and manage machine learning
+    models, run predictions, manage datasets, and orchestrate ML pipelines on
+    Google Cloud.
+  version: v1
+  contact:
+    name: Google Cloud
+    url: https://cloud.google.com/vertex-ai/docs
+servers:
+  - url: https://us-central1-aiplatform.googleapis.com/v1
+    description: Google Vertex AI production endpoint (us-central1)
+tags:
+  - name: Models
+    description: Manage ML models
+  - name: Endpoints
+    description: Manage prediction endpoints
+  - name: Datasets
+    description: Manage training datasets
+  - name: Predictions
+    description: Run predictions using deployed models
+  - name: TrainingPipelines
+    description: Manage training pipelines
+paths:
+  /projects/{project}/locations/{location}/models:
+    get:
+      operationId: listModels
+      summary: List models
+      description: Lists models in the specified project and location.
+      tags:
+        - Models
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+  /projects/{project}/locations/{location}/models/{model}:
+    get:
+      operationId: getModel
+      summary: Get a model
+      description: Gets a model by resource name.
+      tags:
+        - Models
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: model
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+    delete:
+      operationId: deleteModel
+      summary: Delete a model
+      description: Deletes a model and all of its versions.
+      tags:
+        - Models
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: model
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+  /projects/{project}/locations/{location}/endpoints:
+    get:
+      operationId: listEndpoints
+      summary: List endpoints
+      description: Lists endpoints in the specified project and location.
+      tags:
+        - Endpoints
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointList'
+    post:
+      operationId: createEndpoint
+      summary: Create an endpoint
+      description: Creates an endpoint for deploying models.
+      tags:
+        - Endpoints
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Endpoint'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+  /projects/{project}/locations/{location}/endpoints/{endpoint}:predict:
+    post:
+      operationId: predict
+      summary: Run a prediction
+      description: Runs a prediction against a deployed model on the specified endpoint.
+      tags:
+        - Predictions
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredictRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredictResponse'
+  /projects/{project}/locations/{location}/datasets:
+    get:
+      operationId: listDatasets
+      summary: List datasets
+      description: Lists datasets in the specified project and location.
+      tags:
+        - Datasets
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetList'
+  /projects/{project}/locations/{location}/trainingPipelines:
+    get:
+      operationId: listTrainingPipelines
+      summary: List training pipelines
+      description: Lists training pipelines in the specified project and location.
+      tags:
+        - TrainingPipelines
+      parameters:
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingPipelineList'
+components:
+  schemas:
+    Model:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Resource name of the model
+        displayName:
+          type: string
+          description: Display name of the model
+        description:
+          type: string
+          description: Description of the model
+        versionId:
+          type: string
+          description: Version ID of the model
+        containerSpec:
+          type: object
+          properties:
+            imageUri:
+              type: string
+              description: URI of the container image
+        deployedModels:
+          type: array
+          items:
+            type: object
+            properties:
+              endpoint:
+                type: string
+              deployedModelId:
+                type: string
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+    ModelList:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+        nextPageToken:
+          type: string
+    Endpoint:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Resource name of the endpoint
+        displayName:
+          type: string
+          description: Display name of the endpoint
+        description:
+          type: string
+        deployedModels:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              model:
+                type: string
+              displayName:
+                type: string
+    EndpointList:
+      type: object
+      properties:
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Endpoint'
+        nextPageToken:
+          type: string
+    PredictRequest:
+      type: object
+      properties:
+        instances:
+          type: array
+          items:
+            type: object
+          description: Instances to make predictions on
+        parameters:
+          type: object
+          description: Parameters for the prediction
+    PredictResponse:
+      type: object
+      properties:
+        predictions:
+          type: array
+          items:
+            type: object
+          description: Prediction results
+        deployedModelId:
+          type: string
+    DatasetList:
+      type: object
+      properties:
+        datasets:
+          type: array
+          items:
+            type: object
+        nextPageToken:
+          type: string
+    TrainingPipelineList:
+      type: object
+      properties:
+        trainingPipelines:
+          type: array
+          items:
+            type: object
+        nextPageToken:
+          type: string
+    Operation:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+        response:
+          type: object
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to Google Cloud Platform resources
+security:
+  - oauth2:
+      - https://www.googleapis.com/auth/cloud-platform

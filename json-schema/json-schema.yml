@@ -1,0 +1,96 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://raw.githubusercontent.com/api-evangelist/google-vertex-ai/refs/heads/main/json-schema/json-schema.yml
+title: Google Vertex AI Model
+description: A machine learning model resource in Google Vertex AI
+type: object
+properties:
+  name:
+    type: string
+    description: Resource name of the model
+  displayName:
+    type: string
+    description: Human-readable display name of the model
+    minLength: 1
+    maxLength: 128
+  description:
+    type: string
+    description: Description of the model
+  versionId:
+    type: string
+    description: Immutable version ID of the model
+  versionAliases:
+    type: array
+    items:
+      type: string
+    description: User-provided version aliases
+  containerSpec:
+    type: object
+    properties:
+      imageUri:
+        type: string
+        format: uri
+        description: URI of the container image for serving predictions
+      command:
+        type: array
+        items:
+          type: string
+        description: Command to run in the container
+      args:
+        type: array
+        items:
+          type: string
+        description: Arguments for the container command
+      ports:
+        type: array
+        items:
+          type: object
+          properties:
+            containerPort:
+              type: integer
+        description: Ports to expose from the container
+    required:
+      - imageUri
+    description: Specification of the container for the model
+  artifactUri:
+    type: string
+    format: uri
+    description: URI of the directory containing the model artifacts
+  supportedDeploymentResourcesTypes:
+    type: array
+    items:
+      type: string
+      enum:
+        - DEDICATED_RESOURCES
+        - AUTOMATIC_RESOURCES
+        - SHARED_RESOURCES
+    description: Supported deployment resource types
+  deployedModels:
+    type: array
+    items:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          description: Resource name of the endpoint
+        deployedModelId:
+          type: string
+          description: ID of the deployed model
+    description: Models deployed from this model resource
+  etag:
+    type: string
+    description: Used for optimistic concurrency control
+  labels:
+    type: object
+    additionalProperties:
+      type: string
+    description: Labels with user-defined metadata
+  createTime:
+    type: string
+    format: date-time
+    description: Timestamp when the model was created
+  updateTime:
+    type: string
+    format: date-time
+    description: Timestamp when the model was last updated
+required:
+  - displayName

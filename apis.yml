@@ -1,0 +1,48 @@
+name: Google Vertex AI
+description: >-
+  Google Vertex AI is a machine learning platform that enables developers and
+  data scientists to build, deploy, and scale ML models, including generative AI
+  models, with pre-trained APIs, AutoML, and custom training capabilities.
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/google-vertex-ai/refs/heads/main/apis.yml
+created: '2026-03-13'
+modified: '2026-03-13'
+specificationVersion: '0.18'
+tags:
+  - Machine Learning
+  - Artificial Intelligence
+  - Generative AI
+  - Google Cloud
+  - ML Models
+apis:
+  - name: Google Vertex AI API
+    description: >-
+      The Google Vertex AI API provides programmatic access to build, deploy, and
+      manage machine learning models, run predictions, manage datasets, and
+      orchestrate ML pipelines on Google Cloud.
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://cloud.google.com/vertex-ai/docs
+    baseURL: https://us-central1-aiplatform.googleapis.com/v1
+    tags:
+      - Machine Learning
+      - Models
+      - Predictions
+      - Training
+    properties:
+      - type: OpenAPI
+        url: openapi/openapi.yml
+      - type: JSONSchema
+        url: json-schema/json-schema.yml
+      - type: JSONLDContext
+        url: json-ld/json-ld.yml
+common:
+  - type: GettingStarted
+    url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
+  - type: Pricing
+    url: https://cloud.google.com/vertex-ai/pricing
+  - type: JSONLDContext
+    url: json-ld/json-ld.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

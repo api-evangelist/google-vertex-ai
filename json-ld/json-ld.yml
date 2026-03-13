@@ -1,0 +1,35 @@
+"@context":
+  "@vocab": https://schema.org/
+  gcp: https://cloud.google.com/vertex-ai/docs/reference/rest/v1/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  dcterms: http://purl.org/dc/terms/
+  Model:
+    "@id": gcp:projects.locations.models
+    "@type": "@id"
+  displayName:
+    "@id": schema:name
+    "@type": xsd:string
+  description:
+    "@id": schema:description
+    "@type": xsd:string
+  versionId:
+    "@id": gcp:versionId
+    "@type": xsd:string
+  containerSpec:
+    "@id": gcp:containerSpec
+    "@type": "@id"
+  artifactUri:
+    "@id": gcp:artifactUri
+    "@type": xsd:anyURI
+  deployedModels:
+    "@id": gcp:deployedModels
+    "@container": "@set"
+  labels:
+    "@id": gcp:labels
+    "@type": "@id"
+  dateCreated:
+    "@id": dcterms:created
+    "@type": xsd:dateTime
+  dateModified:
+    "@id": dcterms:modified
+    "@type": xsd:dateTime
