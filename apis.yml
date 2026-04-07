@@ -11,10 +11,10 @@ modified: '2026-03-16'
 specificationVersion: '0.19'
 type: Index
 tags:
-  - Machine Learning
   - Artificial Intelligence
   - Generative AI
   - Google Cloud
+  - Machine Learning
   - ML Models
 apis:
   - name: Google Vertex AI API

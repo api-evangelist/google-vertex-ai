@@ -13,12 +13,12 @@ servers:
   - url: https://us-central1-aiplatform.googleapis.com/v1
     description: Google Vertex AI production endpoint (us-central1)
 tags:
-  - name: Models
-    description: Manage ML models
-  - name: Endpoints
-    description: Manage prediction endpoints
   - name: Datasets
     description: Manage training datasets
+  - name: Endpoints
+    description: Manage prediction endpoints
+  - name: Models
+    description: Manage ML models
   - name: Predictions
     description: Run predictions using deployed models
   - name: TrainingPipelines
