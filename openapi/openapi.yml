@@ -27,7 +27,7 @@ paths:
   /projects/{project}/locations/{location}/models:
     get:
       operationId: listModels
-      summary: List models
+      summary: Google Vertex AI List models
       description: Lists models in the specified project and location.
       tags:
         - Models
@@ -52,7 +52,7 @@ paths:
   /projects/{project}/locations/{location}/models/{model}:
     get:
       operationId: getModel
-      summary: Get a model
+      summary: Google Vertex AI Get a model
       description: Gets a model by resource name.
       tags:
         - Models
@@ -81,7 +81,7 @@ paths:
                 $ref: '#/components/schemas/Model'
     delete:
       operationId: deleteModel
-      summary: Delete a model
+      summary: Google Vertex AI Delete a model
       description: Deletes a model and all of its versions.
       tags:
         - Models
@@ -111,7 +111,7 @@ paths:
   /projects/{project}/locations/{location}/endpoints:
     get:
       operationId: listEndpoints
-      summary: List endpoints
+      summary: Google Vertex AI List endpoints
       description: Lists endpoints in the specified project and location.
       tags:
         - Endpoints
@@ -135,7 +135,7 @@ paths:
                 $ref: '#/components/schemas/EndpointList'
     post:
       operationId: createEndpoint
-      summary: Create an endpoint
+      summary: Google Vertex AI Create an endpoint
       description: Creates an endpoint for deploying models.
       tags:
         - Endpoints
@@ -166,7 +166,7 @@ paths:
   /projects/{project}/locations/{location}/endpoints/{endpoint}:predict:
     post:
       operationId: predict
-      summary: Run a prediction
+      summary: Google Vertex AI Run a prediction
       description: Runs a prediction against a deployed model on the specified endpoint.
       tags:
         - Predictions
@@ -202,7 +202,7 @@ paths:
   /projects/{project}/locations/{location}/datasets:
     get:
       operationId: listDatasets
-      summary: List datasets
+      summary: Google Vertex AI List datasets
       description: Lists datasets in the specified project and location.
       tags:
         - Datasets
@@ -227,7 +227,7 @@ paths:
   /projects/{project}/locations/{location}/trainingPipelines:
     get:
       operationId: listTrainingPipelines
-      summary: List training pipelines
+      summary: Google Vertex AI List training pipelines
       description: Lists training pipelines in the specified project and location.
       tags:
         - TrainingPipelines
