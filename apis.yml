@@ -37,7 +37,7 @@ apis:
         url: openapi/openapi.yml
       - type: Authentication
         url: https://cloud.google.com/vertex-ai/docs/general/authentication
-      - type: Getting Started
+      - type: GettingStarted
         url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
       - type: JSONSchema
         url: json-schema/json-schema.yml
@@ -46,7 +46,7 @@ apis:
 common:
   - type: Portal
     url: https://cloud.google.com/vertex-ai
-  - type: Getting Started
+  - type: GettingStarted
     url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
   - type: Documentation
     url: https://cloud.google.com/vertex-ai/docs
@@ -54,11 +54,11 @@ common:
     url: https://cloud.google.com/vertex-ai/docs/general/authentication
   - type: Pricing
     url: https://cloud.google.com/vertex-ai/pricing
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://cloud.google.com/terms
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://policies.google.com/privacy
-  - type: Status
+  - type: StatusPage
     url: https://status.cloud.google.com/
   - type: Support
     url: https://cloud.google.com/vertex-ai/docs/support
