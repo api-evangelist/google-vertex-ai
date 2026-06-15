@@ -1,0 +1,3054 @@
+"""
+Google Vertex AI GraphQL Schema
+Derived from the Google Vertex AI REST/gRPC API surface.
+Covers model training, deployment, AutoML, feature store, model registry,
+pipelines, experiments, and Model Garden (Gemini, PaLM, Imagen).
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+scalar Long
+scalar Float64
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum JobState {
+  JOB_STATE_UNSPECIFIED
+  JOB_STATE_QUEUED
+  JOB_STATE_PENDING
+  JOB_STATE_RUNNING
+  JOB_STATE_SUCCEEDED
+  JOB_STATE_FAILED
+  JOB_STATE_CANCELLING
+  JOB_STATE_CANCELLED
+  JOB_STATE_PAUSED
+  JOB_STATE_EXPIRED
+  JOB_STATE_UPDATING
+  JOB_STATE_PARTIALLY_SUCCEEDED
+}
+
+enum ModelFramework {
+  MODEL_FRAMEWORK_UNSPECIFIED
+  TENSORFLOW
+  SCIKIT_LEARN
+  XGBOOST
+  PYTORCH
+  CUSTOM
+}
+
+enum PipelineState {
+  PIPELINE_STATE_UNSPECIFIED
+  PIPELINE_STATE_QUEUED
+  PIPELINE_STATE_PENDING
+  PIPELINE_STATE_RUNNING
+  PIPELINE_STATE_SUCCEEDED
+  PIPELINE_STATE_FAILED
+  PIPELINE_STATE_CANCELLING
+  PIPELINE_STATE_CANCELLED
+  PIPELINE_STATE_PAUSED
+}
+
+enum DatasetSchemaType {
+  DATASET_SCHEMA_UNSPECIFIED
+  IMAGE_CLASSIFICATION_SINGLE_LABEL
+  IMAGE_CLASSIFICATION_MULTI_LABEL
+  IMAGE_OBJECT_DETECTION
+  IMAGE_SEGMENTATION
+  VIDEO_CLASSIFICATION
+  VIDEO_OBJECT_TRACKING
+  TEXT_CLASSIFICATION_SINGLE_LABEL
+  TEXT_CLASSIFICATION_MULTI_LABEL
+  TEXT_ENTITY_EXTRACTION
+  TEXT_SENTIMENT
+  TABULAR_CLASSIFICATION
+  TABULAR_REGRESSION
+}
+
+enum DeploymentResourceType {
+  DEPLOYMENT_RESOURCE_TYPE_UNSPECIFIED
+  DEDICATED_RESOURCES
+  AUTOMATIC_RESOURCES
+  SHARED_RESOURCES
+}
+
+enum AcceleratorType {
+  ACCELERATOR_TYPE_UNSPECIFIED
+  NVIDIA_TESLA_K80
+  NVIDIA_TESLA_P100
+  NVIDIA_TESLA_V100
+  NVIDIA_TESLA_P4
+  NVIDIA_TESLA_T4
+  NVIDIA_TESLA_A100
+  NVIDIA_A100_80GB
+  NVIDIA_L4
+  TPU_V2
+  TPU_V3
+  TPU_V4_POD
+}
+
+enum FeatureValueType {
+  VALUE_TYPE_UNSPECIFIED
+  BOOL
+  BOOL_ARRAY
+  DOUBLE
+  DOUBLE_ARRAY
+  INT64
+  INT64_ARRAY
+  STRING
+  STRING_ARRAY
+  BYTES
+}
+
+enum IndexAlgorithmType {
+  INDEX_ALGORITHM_TYPE_UNSPECIFIED
+  BRUTE_FORCE_ANS
+  TREE_AH_ANS
+}
+
+enum EndpointNetworkType {
+  ENDPOINT_NETWORK_TYPE_UNSPECIFIED
+  PUBLIC
+  PRIVATE
+}
+
+enum ModelEvaluationStatus {
+  EVALUATION_STATUS_UNSPECIFIED
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+enum OperationType {
+  OPERATION_TYPE_UNSPECIFIED
+  CREATE
+  DELETE
+  UPDATE
+  IMPORT
+  EXPORT
+  PREDICT
+  DEPLOY
+  UNDEPLOY
+  BATCH_PREDICT
+}
+
+enum SafetyCategory {
+  HARM_CATEGORY_UNSPECIFIED
+  HARM_CATEGORY_HATE_SPEECH
+  HARM_CATEGORY_DANGEROUS_CONTENT
+  HARM_CATEGORY_HARASSMENT
+  HARM_CATEGORY_SEXUALLY_EXPLICIT
+}
+
+enum SafetyThreshold {
+  HARM_BLOCK_THRESHOLD_UNSPECIFIED
+  BLOCK_LOW_AND_ABOVE
+  BLOCK_MEDIUM_AND_ABOVE
+  BLOCK_ONLY_HIGH
+  BLOCK_NONE
+}
+
+enum FinishReason {
+  FINISH_REASON_UNSPECIFIED
+  STOP
+  MAX_TOKENS
+  SAFETY
+  RECITATION
+  OTHER
+}
+
+# ---------------------------------------------------------------------------
+# Core Entity Types
+# ---------------------------------------------------------------------------
+
+type Project {
+  id: ID!
+  projectId: String!
+  name: String!
+  displayName: String
+  description: String
+  createTime: DateTime
+  labels: JSON
+}
+
+type Location {
+  name: String!
+  locationId: String!
+  displayName: String
+  labels: JSON
+  metadata: JSON
+}
+
+type Dataset {
+  name: ID!
+  displayName: String!
+  description: String
+  metadataSchemaUri: String!
+  metadata: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+  dataItemCount: Long
+  encryptionSpec: EncryptionSpec
+}
+
+type DataItem {
+  name: ID!
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  payload: JSON
+  etag: String
+}
+
+type Annotation {
+  name: ID!
+  annotationSource: UserActionReference
+  payload: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+  payloadSchemaUri: String
+}
+
+type Model {
+  name: ID!
+  versionId: String
+  displayName: String!
+  description: String
+  metadataSchemaUri: String
+  metadata: JSON
+  trainingPipeline: String
+  artifactUri: String
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+  encryptionSpec: EncryptionSpec
+  supportedDeploymentResourcesTypes: [DeploymentResourceType]
+  supportedExportFormats: [ExportFormat]
+  containerSpec: ModelContainerSpec
+  predictSchemata: PredictSchemata
+  modelSourceInfo: ModelSourceInfo
+  versionCreateTime: DateTime
+  versionUpdateTime: DateTime
+  versionDescription: String
+}
+
+type ModelVersion {
+  name: ID!
+  versionId: String!
+  displayName: String
+  description: String
+  createTime: DateTime
+  updateTime: DateTime
+  versionAliases: [String]
+  modelSourceInfo: ModelSourceInfo
+}
+
+type Endpoint {
+  name: ID!
+  displayName: String!
+  description: String
+  deployedModels: [DeployedModel]
+  trafficSplit: JSON
+  etag: String
+  labels: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  encryptionSpec: EncryptionSpec
+  network: String
+  enablePrivateServiceConnect: Boolean
+  privateServiceConnectConfig: PrivateServiceConnectConfig
+  modelDeploymentMonitoringJob: String
+}
+
+type DeployedModel {
+  id: ID!
+  model: String!
+  modelVersionId: String
+  displayName: String
+  createTime: DateTime
+  dedicatedResources: DedicatedResources
+  automaticResources: AutomaticResources
+  sharedResources: String
+  enableAccessLogging: Boolean
+  enableContainerLogging: Boolean
+  explanationSpec: ExplanationSpec
+  serviceAccount: String
+  disableExplanations: Boolean
+}
+
+type TrainingPipeline {
+  name: ID!
+  displayName: String!
+  inputDataConfig: InputDataConfig
+  trainingTaskDefinition: String!
+  trainingTaskInputs: JSON
+  trainingTaskMetadata: JSON
+  modelToUpload: Model
+  modelId: String
+  parentModel: String
+  state: JobState
+  error: Status
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  encryptionSpec: EncryptionSpec
+}
+
+type PipelineJob {
+  name: ID!
+  displayName: String
+  pipelineSpec: JSON
+  state: PipelineState
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  templateUri: String
+  templateMetadata: PipelineTemplateMetadata
+  jobDetail: PipelineJobDetail
+  error: Status
+  runtimeConfig: PipelineJobRuntimeConfig
+  encryptionSpec: EncryptionSpec
+  serviceAccount: String
+  network: String
+}
+
+type PipelineJobDetail {
+  pipelineContext: Context
+  pipelineRunContext: Context
+  taskDetails: [PipelineTaskDetail]
+}
+
+type PipelineTaskDetail {
+  taskId: Long
+  parentTaskId: Long
+  taskName: String
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  state: PipelineState
+  error: Status
+  inputs: JSON
+  outputs: JSON
+  executorDetail: PipelineTaskExecutorDetail
+}
+
+type PipelineTaskExecutorDetail {
+  containerDetail: ContainerDetail
+  customJobDetail: CustomJobDetail
+}
+
+type ContainerDetail {
+  mainJob: String
+  preCachingCheckJob: String
+  failedMainJobs: [String]
+  failedPreCachingCheckJobs: [String]
+}
+
+type CustomJobDetail {
+  job: String
+  failedJobs: [String]
+}
+
+type Featurestore {
+  name: ID!
+  displayName: String
+  description: String
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+  onlineServingConfig: OnlineServingConfig
+  state: FeaturestoreState
+  encryptionSpec: EncryptionSpec
+}
+
+enum FeaturestoreState {
+  STATE_UNSPECIFIED
+  STABLE
+  UPDATING
+}
+
+type EntityType {
+  name: ID!
+  description: String
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  etag: String
+  monitoringConfig: FeaturestoreMonitoringConfig
+  offlineStorageTtlDays: Int
+}
+
+type Feature {
+  name: ID!
+  description: String
+  valueType: FeatureValueType
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  etag: String
+  monitoringStatsAnomalies: [FeatureStatsAnomaly]
+  disableMonitoring: Boolean
+}
+
+type FeatureGroup {
+  name: ID!
+  displayName: String
+  description: String
+  bigQuery: BigQuerySource
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+}
+
+type FeatureView {
+  name: ID!
+  displayName: String
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+  bigQuerySource: BigQuerySource
+  featureRegistrySource: FeatureRegistrySource
+  syncConfig: FeatureViewSyncConfig
+}
+
+type Index {
+  name: ID!
+  displayName: String!
+  description: String
+  metadataSchemaUri: String
+  metadata: JSON
+  deployedIndexes: [DeployedIndexRef]
+  etag: String
+  labels: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  indexStats: IndexStats
+  indexUpdateMethod: IndexUpdateMethod
+  encryptionSpec: EncryptionSpec
+}
+
+enum IndexUpdateMethod {
+  INDEX_UPDATE_METHOD_UNSPECIFIED
+  BATCH_UPDATE
+  STREAM_UPDATE
+}
+
+type IndexEndpoint {
+  name: ID!
+  displayName: String!
+  description: String
+  deployedIndexes: [DeployedIndex]
+  etag: String
+  labels: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  network: String
+  enablePrivateServiceConnect: Boolean
+  privateServiceConnectConfig: PrivateServiceConnectConfig
+  encryptionSpec: EncryptionSpec
+  publicEndpointDomainName: String
+  publicEndpointEnabled: Boolean
+}
+
+type DeployedIndex {
+  id: ID!
+  index: String!
+  displayName: String
+  createTime: DateTime
+  privateEndpoints: IndexPrivateEndpoints
+  indexSyncTime: DateTime
+  automaticResources: AutomaticResources
+  dedicatedResources: DedicatedResources
+  enableAccessLogging: Boolean
+  deployedIndexAuthConfig: DeployedIndexAuthConfig
+  reservedIpRanges: [String]
+  deploymentGroup: String
+}
+
+type ModelEvaluation {
+  name: ID!
+  displayName: String
+  metricsSchemaUri: String
+  metrics: JSON
+  createTime: DateTime
+  sliceDimensions: [String]
+  modelExplanation: ModelExplanation
+  metadata: JSON
+  dataItemSchemaUri: String
+  annotationSchemaUri: String
+}
+
+type ModelEvaluationSlice {
+  name: ID!
+  slice: Slice
+  metricsSchemaUri: String
+  metrics: JSON
+  createTime: DateTime
+  modelExplanation: ModelExplanation
+}
+
+type BatchPredictionJob {
+  name: ID!
+  displayName: String!
+  model: String
+  modelVersionId: String
+  inputConfig: BatchPredictionInputConfig
+  instanceConfig: BatchInstanceConfig
+  outputConfig: BatchPredictionOutputConfig
+  dedicatedResources: BatchDedicatedResources
+  serviceAccount: String
+  generateExplanation: Boolean
+  explanationSpec: ExplanationSpec
+  outputInfo: OutputInfo
+  state: JobState
+  error: Status
+  partialFailures: [Status]
+  resourcesConsumed: ResourcesConsumed
+  completionStats: CompletionStats
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  encryptionSpec: EncryptionSpec
+  unmanagedContainerModel: UnmanagedContainerModel
+}
+
+type CustomJob {
+  name: ID!
+  displayName: String!
+  jobSpec: CustomJobSpec!
+  state: JobState
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  error: Status
+  labels: JSON
+  encryptionSpec: EncryptionSpec
+  webAccessUris: JSON
+}
+
+type HyperparameterTuningJob {
+  name: ID!
+  displayName: String!
+  studySpec: StudySpec!
+  maxTrialCount: Int!
+  parallelTrialCount: Int!
+  maxFailedTrialCount: Int
+  trialJobSpec: CustomJobSpec!
+  trials: [Trial]
+  state: JobState
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  error: Status
+  labels: JSON
+  encryptionSpec: EncryptionSpec
+}
+
+type NasJob {
+  name: ID!
+  displayName: String!
+  nasJobSpec: NasJobSpec!
+  nasJobOutput: NasJobOutput
+  state: JobState
+  createTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  error: Status
+  labels: JSON
+  encryptionSpec: EncryptionSpec
+  enableRestrictedImageTraining: Boolean
+}
+
+type Experiment {
+  name: ID!
+  displayName: String
+  description: String
+  state: ExperimentState
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  etag: String
+  tensorboardName: String
+}
+
+enum ExperimentState {
+  EXPERIMENT_STATE_UNSPECIFIED
+  RUNNING
+  DONE
+}
+
+type ExperimentRun {
+  name: ID!
+  displayName: String
+  description: String
+  state: ExperimentRunState
+  schedule: String
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  metrics: [Metric]
+  params: [Param]
+  labels: JSON
+  etag: String
+  serviceAccount: String
+}
+
+enum ExperimentRunState {
+  EXPERIMENT_RUN_STATE_UNSPECIFIED
+  RUNNING
+  COMPLETE
+  FAILED
+  CANCELLED
+  CANCELLING
+  PAUSED
+}
+
+type Context {
+  name: ID!
+  displayName: String
+  description: String
+  schemaTitle: String
+  schemaVersion: String
+  metadata: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  etag: String
+  labels: JSON
+  parentContexts: [String]
+}
+
+type Artifact {
+  name: ID!
+  displayName: String
+  uri: String
+  etag: String
+  labels: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  state: ArtifactState
+  schemaTitle: String
+  schemaVersion: String
+  metadata: JSON
+  description: String
+}
+
+enum ArtifactState {
+  STATE_UNSPECIFIED
+  PENDING
+  LIVE
+}
+
+type Execution {
+  name: ID!
+  displayName: String
+  state: ExecutionState
+  etag: String
+  labels: JSON
+  createTime: DateTime
+  updateTime: DateTime
+  schemaTitle: String
+  schemaVersion: String
+  metadata: JSON
+  description: String
+}
+
+enum ExecutionState {
+  STATE_UNSPECIFIED
+  NEW
+  RUNNING
+  COMPLETE
+  FAILED
+  CACHED
+  CANCELLED
+}
+
+type MetadataStore {
+  name: ID!
+  createTime: DateTime
+  updateTime: DateTime
+  state: MetadataStoreState
+  description: String
+  dataplexConfig: DataplexConfig
+  encryptionSpec: EncryptionSpec
+}
+
+type MetadataStoreState {
+  diskUtilizationBytes: Long
+}
+
+type Schedule {
+  name: ID!
+  displayName: String
+  createTime: DateTime
+  updateTime: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  lastScheduleTime: DateTime
+  nextRunTime: DateTime
+  state: ScheduleState
+  cron: String
+  maxRunCount: Long
+  startedRunCount: Long
+  allowQueueing: Boolean
+  maxConcurrentRunCount: Long
+  createPipelineJobRequest: CreatePipelineJobRequest
+}
+
+enum ScheduleState {
+  STATE_UNSPECIFIED
+  ACTIVE
+  COMPLETED
+  PAUSED
+}
+
+type Tensorboard {
+  name: ID!
+  displayName: String!
+  description: String
+  encryptionSpec: EncryptionSpec
+  blobStoragePathPrefix: String
+  runCount: Int
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  etag: String
+  isDefault: Boolean
+}
+
+type TensorboardExperiment {
+  name: ID!
+  displayName: String
+  description: String
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  etag: String
+  source: String
+}
+
+type TensorboardRun {
+  name: ID!
+  displayName: String!
+  description: String
+  createTime: DateTime
+  updateTime: DateTime
+  labels: JSON
+  etag: String
+}
+
+type PublisherModel {
+  name: ID!
+  displayName: String
+  description: String
+  versionId: String
+  openSourceCategory: OpenSourceCategory
+  supportedActions: PublisherModelSupportedActions
+  frameworks: [String]
+  launchStage: LaunchStage
+  versionState: PublisherModelVersionState
+  publisherModelTemplate: String
+  predictSchemata: PredictSchemata
+}
+
+enum OpenSourceCategory {
+  OPEN_SOURCE_CATEGORY_UNSPECIFIED
+  PROPRIETARY
+  GOOGLE_OWNED_OSS_WITH_GOOGLE_CHECKPOINT
+  THIRD_PARTY_OWNED_OSS_WITH_GOOGLE_CHECKPOINT
+  GOOGLE_OWNED_OSS
+  THIRD_PARTY_OWNED_OSS
+}
+
+enum LaunchStage {
+  LAUNCH_STAGE_UNSPECIFIED
+  EXPERIMENTAL
+  PRIVATE_PREVIEW
+  PUBLIC_PREVIEW
+  GA
+}
+
+enum PublisherModelVersionState {
+  PUBLISHER_MODEL_VERSION_STATE_UNSPECIFIED
+  PUBLISHER_MODEL_VERSION_STATE_SUPPORTED
+  PUBLISHER_MODEL_VERSION_STATE_DEPRECATED
+}
+
+# ---------------------------------------------------------------------------
+# Supporting / Nested Types
+# ---------------------------------------------------------------------------
+
+type EncryptionSpec {
+  kmsKeyName: String!
+}
+
+type Status {
+  code: Int
+  message: String
+  details: [JSON]
+}
+
+type MachineSpec {
+  machineType: String!
+  acceleratorType: AcceleratorType
+  acceleratorCount: Int
+}
+
+type DedicatedResources {
+  machineSpec: MachineSpec!
+  minReplicaCount: Int!
+  maxReplicaCount: Int
+  autoscalingMetricSpecs: [AutoscalingMetricSpec]
+}
+
+type AutomaticResources {
+  minReplicaCount: Int
+  maxReplicaCount: Int
+}
+
+type BatchDedicatedResources {
+  machineSpec: MachineSpec!
+  startingReplicaCount: Int
+  maxReplicaCount: Int
+}
+
+type AutoscalingMetricSpec {
+  metricName: String!
+  target: Int
+}
+
+type ExplanationSpec {
+  parameters: ExplanationParameters
+  metadata: ExplanationMetadata
+}
+
+type ExplanationParameters {
+  sampledShapleyAttribution: SampledShapleyAttribution
+  integratedGradientsAttribution: IntegratedGradientsAttribution
+  xraiAttribution: XraiAttribution
+  examples: Examples
+  topK: Int
+  outputIndices: JSON
+}
+
+type SampledShapleyAttribution {
+  pathCount: Int!
+}
+
+type IntegratedGradientsAttribution {
+  stepCount: Int!
+  smoothGradConfig: SmoothGradConfig
+  blurBaselineConfig: BlurBaselineConfig
+}
+
+type XraiAttribution {
+  stepCount: Int!
+  smoothGradConfig: SmoothGradConfig
+  blurBaselineConfig: BlurBaselineConfig
+}
+
+type SmoothGradConfig {
+  noiseSigma: Float
+  featureNoiseSigma: FeatureNoiseSigma
+  noisySampleCount: Int
+}
+
+type FeatureNoiseSigma {
+  noiseSigma: [NoiseSigmaForFeature]
+}
+
+type NoiseSigmaForFeature {
+  name: String!
+  sigma: Float
+}
+
+type BlurBaselineConfig {
+  maxBlurSigma: Float
+}
+
+type Examples {
+  exampleGcsSource: ExampleGcsSource
+  nearestNeighborSearchConfig: JSON
+  presets: Presets
+  neighborCount: Int
+}
+
+type ExampleGcsSource {
+  dataFormat: ExamplesDataFormat
+  gcsSource: GcsSource
+}
+
+enum ExamplesDataFormat {
+  DATA_FORMAT_UNSPECIFIED
+  INSTANCES
+  EMBEDDINGS
+}
+
+type Presets {
+  query: PresetQuery
+  modality: Modality
+}
+
+enum PresetQuery {
+  PRECISE
+  FAST
+}
+
+enum Modality {
+  MODALITY_UNSPECIFIED
+  IMAGE
+  TEXT
+  TABULAR
+}
+
+type ExplanationMetadata {
+  inputs: JSON
+  outputs: JSON
+  featureAttributionsSchemaUri: String
+  latentSpaceSource: String
+}
+
+type ModelExplanation {
+  meanAttributions: [Attribution]
+}
+
+type Attribution {
+  baselineOutputValue: Float64
+  instanceOutputValue: Float64
+  featureAttributions: JSON
+  outputIndex: [Int]
+  outputDisplayName: String
+  approximationError: Float64
+  outputName: String
+}
+
+type ModelContainerSpec {
+  imageUri: String!
+  command: [String]
+  args: [String]
+  env: [EnvVar]
+  ports: [Port]
+  predictRoute: String
+  healthRoute: String
+  grpcPorts: [Port]
+  deploymentTimeout: String
+  sharedMemorySizeMb: Long
+  startupProbe: Probe
+  healthProbe: Probe
+}
+
+type EnvVar {
+  name: String!
+  value: String!
+}
+
+type Port {
+  containerPort: Int!
+}
+
+type Probe {
+  exec: ExecAction
+  periodSeconds: Int
+  timeoutSeconds: Int
+}
+
+type ExecAction {
+  command: [String]
+}
+
+type PredictSchemata {
+  instanceSchemaUri: String
+  parametersSchemaUri: String
+  predictionSchemaUri: String
+}
+
+type ModelSourceInfo {
+  sourceType: ModelSourceType
+  copy: Boolean
+}
+
+enum ModelSourceType {
+  MODEL_SOURCE_TYPE_UNSPECIFIED
+  AUTOML
+  CUSTOM
+  BQML
+  MODEL_GARDEN
+  GENIE
+}
+
+type ExportFormat {
+  id: String!
+  exportableContents: [ExportableContent]
+}
+
+enum ExportableContent {
+  EXPORTABLE_CONTENT_UNSPECIFIED
+  ARTIFACT
+  IMAGE
+}
+
+type InputDataConfig {
+  datasetId: String
+  annotationsFilter: String
+  annotationSchemaUri: String
+  savedQueryId: String
+  fractionSplit: FractionSplit
+  filterSplit: FilterSplit
+  predefinedSplit: PredefinedSplit
+  timestampSplit: TimestampSplit
+  stratifiedSplit: StratifiedSplit
+  bigqueryDestination: BigQueryDestination
+  gcsDestination: GcsDestination
+  persistMlUseAssignment: Boolean
+}
+
+type FractionSplit {
+  trainingFraction: Float64!
+  validationFraction: Float64!
+  testFraction: Float64!
+}
+
+type FilterSplit {
+  trainingFilter: String!
+  validationFilter: String!
+  testFilter: String!
+}
+
+type PredefinedSplit {
+  key: String!
+}
+
+type TimestampSplit {
+  trainingFraction: Float64!
+  validationFraction: Float64!
+  testFraction: Float64!
+  key: String!
+}
+
+type StratifiedSplit {
+  trainingFraction: Float64!
+  validationFraction: Float64!
+  testFraction: Float64!
+  key: String!
+}
+
+type GcsSource {
+  uris: [String!]!
+}
+
+type GcsDestination {
+  outputUriPrefix: String!
+}
+
+type BigQuerySource {
+  inputUri: String!
+}
+
+type BigQueryDestination {
+  outputUri: String!
+}
+
+type OnlineServingConfig {
+  fixedNodeCount: Int
+  scaling: Scaling
+}
+
+type Scaling {
+  minNodeCount: Int!
+  maxNodeCount: Int!
+  cpuUtilizationTarget: Int
+}
+
+type FeaturestoreMonitoringConfig {
+  snapshotAnalysis: SnapshotAnalysis
+  importFeaturesAnalysis: ImportFeaturesAnalysis
+  numericalThresholdConfig: ThresholdConfig
+  categoricalThresholdConfig: ThresholdConfig
+}
+
+type SnapshotAnalysis {
+  disabled: Boolean
+  monitoringIntervalDays: Int
+  stalenessDays: Int
+}
+
+type ImportFeaturesAnalysis {
+  state: ImportFeaturesAnalysisState
+  anomalyDetectionBaseline: AnomalyDetectionBaseline
+}
+
+enum ImportFeaturesAnalysisState {
+  STATE_UNSPECIFIED
+  DEFAULT
+  ENABLED
+  DISABLED
+}
+
+enum AnomalyDetectionBaseline {
+  BASELINE_UNSPECIFIED
+  LATEST_STATS
+  MOST_RECENT_SNAPSHOT_STATS
+  PREVIOUS_IMPORT_FEATURES_STATS
+}
+
+type ThresholdConfig {
+  value: Float64
+}
+
+type FeatureStatsAnomaly {
+  score: Float64
+  statsUri: String
+  anomalyUri: String
+  startTime: DateTime
+  endTime: DateTime
+  updateTime: DateTime
+  featureStatsAnomaly: AnomalyState
+}
+
+enum AnomalyState {
+  ANOMALY_STATE_UNSPECIFIED
+  NORMAL
+  ANOMALY
+  NO_DATA
+}
+
+type IndexStats {
+  vectorsCount: Long
+  shardsCount: Int
+}
+
+type IndexPrivateEndpoints {
+  matchGrpcAddress: String
+  serviceAttachment: String
+  pscAutomatedEndpoints: [PscAutomatedEndpoints]
+}
+
+type PscAutomatedEndpoints {
+  projectId: String
+  network: String
+  matchAddress: String
+}
+
+type DeployedIndexRef {
+  indexEndpoint: String
+  deployedIndexId: String
+  displayName: String
+}
+
+type DeployedIndexAuthConfig {
+  authProvider: AuthProvider
+}
+
+type AuthProvider {
+  audiences: [String]
+  allowedIssuers: [String]
+}
+
+type PrivateServiceConnectConfig {
+  enablePrivateServiceConnect: Boolean!
+  projectAllowlist: [String]
+}
+
+type Slice {
+  dimension: String!
+  value: SliceValue
+}
+
+type SliceValue {
+  stringValue: String
+  allValues: Boolean
+}
+
+type BatchPredictionInputConfig {
+  instancesFormat: String!
+  gcsSource: GcsSource
+  bigquerySource: BigQuerySource
+}
+
+type BatchInstanceConfig {
+  instanceType: String
+  keyField: String
+  includedFields: [String]
+  excludedFields: [String]
+}
+
+type BatchPredictionOutputConfig {
+  predictionsFormat: String!
+  gcsDestination: GcsDestination
+  bigqueryDestination: BigQueryDestination
+}
+
+type OutputInfo {
+  gcsOutputDirectory: String
+  bigqueryOutputDataset: String
+  bigqueryOutputTable: String
+}
+
+type ResourcesConsumed {
+  replicaHours: Float64
+}
+
+type CompletionStats {
+  successfulCount: Long
+  failedCount: Long
+  incompleteCount: Long
+  successfulForecastPointCount: Long
+}
+
+type UnmanagedContainerModel {
+  artifactUri: String
+  predictSchemata: PredictSchemata
+  containerSpec: ModelContainerSpec
+}
+
+type CustomJobSpec {
+  workerPoolSpecs: [WorkerPoolSpec!]!
+  scheduling: Scheduling
+  serviceAccount: String
+  network: String
+  reservedIpRanges: [String]
+  baseOutputDirectory: GcsDestination
+  protectedArtifactLocationId: String
+  tensorboard: String
+  enableWebAccess: Boolean
+  enableDashboardAccess: Boolean
+  experiment: String
+  experimentRun: String
+  models: [String]
+}
+
+type WorkerPoolSpec {
+  machineSpec: MachineSpec
+  replicaCount: Long
+  diskSpec: DiskSpec
+  containerSpec: ContainerSpec
+  pythonPackageSpec: PythonPackageSpec
+  nfsMounts: [NfsMount]
+}
+
+type DiskSpec {
+  bootDiskType: String
+  bootDiskSizeGb: Int
+}
+
+type ContainerSpec {
+  imageUri: String!
+  command: [String]
+  args: [String]
+  env: [EnvVar]
+}
+
+type PythonPackageSpec {
+  executorImageUri: String!
+  packageUris: [String!]!
+  pythonModule: String!
+  args: [String]
+  env: [EnvVar]
+}
+
+type NfsMount {
+  server: String!
+  path: String!
+  mountPoint: String!
+}
+
+type Scheduling {
+  timeout: String
+  restartJobOnWorkerRestart: Boolean
+  disableRetries: Boolean
+  strategy: SchedulingStrategy
+}
+
+enum SchedulingStrategy {
+  STRATEGY_UNSPECIFIED
+  ON_DEMAND
+  LOW_COST
+  SPOT
+}
+
+type StudySpec {
+  metrics: [MetricSpec!]!
+  parameters: [ParameterSpec!]!
+  algorithm: Algorithm
+  observationNoise: ObservationNoise
+  measurementSelectionType: MeasurementSelectionType
+}
+
+enum Algorithm {
+  ALGORITHM_UNSPECIFIED
+  GRID_SEARCH
+  RANDOM_SEARCH
+}
+
+enum ObservationNoise {
+  OBSERVATION_NOISE_UNSPECIFIED
+  INFERRED
+  LOW
+  HIGH
+}
+
+enum MeasurementSelectionType {
+  MEASUREMENT_SELECTION_TYPE_UNSPECIFIED
+  LAST_MEASUREMENT
+  BEST_MEASUREMENT
+}
+
+type MetricSpec {
+  metricId: String!
+  goal: MetricGoal!
+  safetyConfig: SafetyMetricConfig
+}
+
+enum MetricGoal {
+  GOAL_TYPE_UNSPECIFIED
+  MAXIMIZE
+  MINIMIZE
+}
+
+type SafetyMetricConfig {
+  metric: String!
+  safetyThreshold: Float64!
+  desiredMinSafeTrialsFraction: Float64
+}
+
+type ParameterSpec {
+  parameterId: String!
+  doubleValueSpec: DoubleValueSpec
+  integerValueSpec: IntegerValueSpec
+  categoricalValueSpec: CategoricalValueSpec
+  discreteValueSpec: DiscreteValueSpec
+  scaleType: ScaleType
+  conditionalParameterSpecs: [ConditionalParameterSpec]
+}
+
+type DoubleValueSpec {
+  minValue: Float64!
+  maxValue: Float64!
+  defaultValue: Float64
+}
+
+type IntegerValueSpec {
+  minValue: Long!
+  maxValue: Long!
+  defaultValue: Long
+}
+
+type CategoricalValueSpec {
+  values: [String!]!
+  defaultValue: String
+}
+
+type DiscreteValueSpec {
+  values: [Float64!]!
+  defaultValue: Float64
+}
+
+enum ScaleType {
+  SCALE_TYPE_UNSPECIFIED
+  UNIT_LINEAR_SCALE
+  UNIT_LOG_SCALE
+  UNIT_REVERSE_LOG_SCALE
+}
+
+type ConditionalParameterSpec {
+  parameterSpec: ParameterSpec
+  parentDiscreteValues: DiscreteValueCondition
+  parentIntValues: IntValueCondition
+  parentCategoricalValues: CategoricalValueCondition
+}
+
+type DiscreteValueCondition {
+  values: [Float64!]!
+}
+
+type IntValueCondition {
+  values: [Long!]!
+}
+
+type CategoricalValueCondition {
+  values: [String!]!
+}
+
+type Trial {
+  id: String!
+  state: TrialState
+  parameters: [TrialParameter]
+  finalMeasurement: Measurement
+  measurements: [Measurement]
+  startTime: DateTime
+  endTime: DateTime
+  customJob: String
+  clientId: String
+  infeasibleReason: String
+}
+
+enum TrialState {
+  STATE_UNSPECIFIED
+  REQUESTED
+  ACTIVE
+  STOPPING
+  SUCCEEDED
+  INFEASIBLE
+}
+
+type TrialParameter {
+  parameterId: String!
+  value: JSON
+}
+
+type Measurement {
+  elapsedDuration: String
+  stepCount: Long
+  metrics: [MeasurementMetric]
+}
+
+type MeasurementMetric {
+  metricId: String!
+  value: Float64!
+}
+
+type NasJobSpec {
+  resumeNasJobId: String
+  multiTrialAlgorithmSpec: MultiTrialAlgorithmSpec
+}
+
+type MultiTrialAlgorithmSpec {
+  multiTrialAlgorithm: MultiTrialAlgorithm
+  metric: MetricSpec
+  trialJobSpec: CustomJobSpec
+  searchTrialSpec: SearchTrialSpec
+  trainTrialSpec: TrainTrialSpec
+}
+
+enum MultiTrialAlgorithm {
+  MULTI_TRIAL_ALGORITHM_UNSPECIFIED
+  REINFORCEMENT_LEARNING
+  GRID_SEARCH
+}
+
+type SearchTrialSpec {
+  searchTrialJobSpec: CustomJobSpec
+  maxTrialCount: Int!
+  maxParallelTrialCount: Int!
+  maxFailedTrialCount: Int
+}
+
+type TrainTrialSpec {
+  trainTrialJobSpec: CustomJobSpec!
+  maxParallelTrialCount: Int!
+  frequency: Int!
+}
+
+type NasJobOutput {
+  multiTrialJobOutput: MultiTrialJobOutput
+}
+
+type MultiTrialJobOutput {
+  searchTrials: [NasTrial]
+  trainTrials: [NasTrial]
+}
+
+type NasTrial {
+  id: String
+  state: TrialState
+  finalMeasurement: Measurement
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type PipelineTemplateMetadata {
+  version: String
+}
+
+type PipelineJobRuntimeConfig {
+  parameters: JSON
+  gcsOutputDirectory: String!
+  parameterValues: JSON
+  failurePolicy: PipelineFailurePolicy
+  inputArtifacts: JSON
+}
+
+enum PipelineFailurePolicy {
+  PIPELINE_FAILURE_POLICY_UNSPECIFIED
+  PIPELINE_FAILURE_POLICY_FAIL_SLOW
+  PIPELINE_FAILURE_POLICY_FAIL_FAST
+}
+
+type UserActionReference {
+  dataLabelingJob: String
+  method: String
+  operation: String
+}
+
+type Metric {
+  name: String!
+  numberValue: Float64
+}
+
+type Param {
+  name: String!
+  numberValue: Float64
+  stringValue: String
+}
+
+type DataplexConfig {
+  enabledPipelinesLineage: Boolean
+}
+
+type FeatureRegistrySource {
+  featureGroups: [FeatureGroupSource]
+}
+
+type FeatureGroupSource {
+  featureGroupId: String!
+  featureIds: [String!]!
+}
+
+type FeatureViewSyncConfig {
+  cron: String
+}
+
+type PublisherModelSupportedActions {
+  multiDeployVertex: DeployVertex
+  createEndpoint: DeployVertex
+  openNotebook: ViewRest
+  openFineTuningPipelines: ViewRest
+  openPromptTuningPipelines: ViewRest
+  openGenie: ViewRest
+  openDeploySkill: ViewRest
+  openMakeItYourOwn: ViewRest
+  openEvaluationPipeline: ViewRest
+}
+
+type DeployVertex {
+  multiDeployVertex: [DeployItem]
+}
+
+type DeployItem {
+  dedicatedResources: DedicatedResources
+  automaticResources: AutomaticResources
+  sharedResources: String
+  model: String
+  containerSpec: ModelContainerSpec
+  largeModelReference: LargeModelReference
+  deployTaskName: String
+  title: String
+  publicArtifactUri: String
+}
+
+type LargeModelReference {
+  name: String!
+}
+
+type ViewRest {
+  uri: String
+  title: String
+}
+
+type GenerateContentResponse {
+  candidates: [Candidate]
+  promptFeedback: PromptFeedback
+  usageMetadata: UsageMetadata
+}
+
+type Candidate {
+  index: Int
+  content: Content
+  finishReason: FinishReason
+  safetyRatings: [SafetyRating]
+  citationMetadata: CitationMetadata
+  tokenCount: Int
+  groundingAttributions: [GroundingAttribution]
+  groundingMetadata: GroundingMetadata
+}
+
+type Content {
+  role: String
+  parts: [Part]
+}
+
+type Part {
+  text: String
+  inlineData: Blob
+  functionCall: FunctionCall
+  functionResponse: FunctionResponse
+  fileData: FileData
+  executableCode: ExecutableCode
+  codeExecutionResult: CodeExecutionResult
+}
+
+type Blob {
+  mimeType: String!
+  data: String!
+}
+
+type FunctionCall {
+  name: String!
+  args: JSON
+}
+
+type FunctionResponse {
+  name: String!
+  response: JSON
+}
+
+type FileData {
+  mimeType: String
+  fileUri: String!
+}
+
+type ExecutableCode {
+  language: String!
+  code: String!
+}
+
+type CodeExecutionResult {
+  outcome: String
+  output: String
+}
+
+type SafetyRating {
+  category: SafetyCategory
+  probability: HarmProbability
+  blocked: Boolean
+  score: Float
+}
+
+enum HarmProbability {
+  HARM_PROBABILITY_UNSPECIFIED
+  NEGLIGIBLE
+  LOW
+  MEDIUM
+  HIGH
+}
+
+type CitationMetadata {
+  citations: [Citation]
+}
+
+type Citation {
+  startIndex: Int
+  endIndex: Int
+  uri: String
+  title: String
+  license: String
+  publicationDate: String
+}
+
+type GroundingAttribution {
+  web: WebAttribution
+  retrievedContext: RetrievedContext
+  confidenceScore: Float
+  segment: Segment
+}
+
+type WebAttribution {
+  uri: String!
+  title: String!
+}
+
+type RetrievedContext {
+  uri: String!
+  title: String!
+  text: String
+}
+
+type Segment {
+  startIndex: Int
+  endIndex: Int
+  text: String
+  partIndex: Int
+}
+
+type GroundingMetadata {
+  webSearchQueries: [String]
+  searchEntryPoint: SearchEntryPoint
+  groundingAttributions: [GroundingAttribution]
+  groundingChunks: [GroundingChunk]
+  groundingSupports: [GroundingSupport]
+  retrievalMetadata: RetrievalMetadata
+}
+
+type SearchEntryPoint {
+  renderedContent: String
+  sdkBlob: String
+}
+
+type GroundingChunk {
+  web: WebAttribution
+  retrievedContext: RetrievedContext
+}
+
+type GroundingSupport {
+  segment: Segment
+  groundingChunkIndices: [Int]
+  confidenceScores: [Float]
+}
+
+type RetrievalMetadata {
+  googleSearchDynamicRetrievalScore: Float
+}
+
+type PromptFeedback {
+  blockReason: BlockReason
+  safetyRatings: [SafetyRating]
+  blockReasonMessage: String
+}
+
+enum BlockReason {
+  BLOCKED_REASON_UNSPECIFIED
+  SAFETY
+  OTHER
+  BLOCKLIST
+  PROHIBITED_CONTENT
+}
+
+type UsageMetadata {
+  promptTokenCount: Int
+  candidatesTokenCount: Int
+  totalTokenCount: Int
+}
+
+type EmbedContentResponse {
+  embedding: ContentEmbedding
+}
+
+type ContentEmbedding {
+  values: [Float!]!
+  statistics: EmbedContentStatistics
+}
+
+type EmbedContentStatistics {
+  truncated: Boolean
+  tokenCount: Int
+}
+
+type Operation {
+  name: ID!
+  metadata: JSON
+  done: Boolean
+  error: Status
+  response: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Connection / Pagination Types
+# ---------------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type DatasetConnection {
+  nodes: [Dataset!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ModelConnection {
+  nodes: [Model!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EndpointConnection {
+  nodes: [Endpoint!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type TrainingPipelineConnection {
+  nodes: [TrainingPipeline!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type PipelineJobConnection {
+  nodes: [PipelineJob!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type BatchPredictionJobConnection {
+  nodes: [BatchPredictionJob!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type CustomJobConnection {
+  nodes: [CustomJob!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type FeaturestoreConnection {
+  nodes: [Featurestore!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EntityTypeConnection {
+  nodes: [EntityType!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type FeatureConnection {
+  nodes: [Feature!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type IndexConnection {
+  nodes: [Index!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type IndexEndpointConnection {
+  nodes: [IndexEndpoint!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ArtifactConnection {
+  nodes: [Artifact!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ExecutionConnection {
+  nodes: [Execution!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ContextConnection {
+  nodes: [Context!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type PublisherModelConnection {
+  nodes: [PublisherModel!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ModelEvaluationConnection {
+  nodes: [ModelEvaluation!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ScheduleConnection {
+  nodes: [Schedule!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ExperimentConnection {
+  nodes: [Experiment!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ExperimentRunConnection {
+  nodes: [ExperimentRun!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input CreateDatasetInput {
+  displayName: String!
+  description: String
+  metadataSchemaUri: String!
+  metadata: JSON
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input UpdateDatasetInput {
+  displayName: String
+  description: String
+  labels: JSON
+}
+
+input CreateModelInput {
+  displayName: String!
+  description: String
+  artifactUri: String
+  containerSpec: ModelContainerSpecInput
+  metadataSchemaUri: String
+  metadata: JSON
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input UpdateModelInput {
+  displayName: String
+  description: String
+  labels: JSON
+}
+
+input EncryptionSpecInput {
+  kmsKeyName: String!
+}
+
+input ModelContainerSpecInput {
+  imageUri: String!
+  command: [String]
+  args: [String]
+  env: [EnvVarInput]
+  ports: [PortInput]
+  predictRoute: String
+  healthRoute: String
+}
+
+input EnvVarInput {
+  name: String!
+  value: String!
+}
+
+input PortInput {
+  containerPort: Int!
+}
+
+input CreateEndpointInput {
+  displayName: String!
+  description: String
+  labels: JSON
+  network: String
+  encryptionSpec: EncryptionSpecInput
+  enablePrivateServiceConnect: Boolean
+}
+
+input UpdateEndpointInput {
+  displayName: String
+  description: String
+  labels: JSON
+  trafficSplit: JSON
+}
+
+input DeployModelInput {
+  deployedModel: DeployedModelInput!
+  trafficSplit: JSON
+}
+
+input DeployedModelInput {
+  model: String!
+  displayName: String
+  dedicatedResources: DedicatedResourcesInput
+  automaticResources: AutomaticResourcesInput
+  enableAccessLogging: Boolean
+  enableContainerLogging: Boolean
+  serviceAccount: String
+}
+
+input DedicatedResourcesInput {
+  machineSpec: MachineSpecInput!
+  minReplicaCount: Int!
+  maxReplicaCount: Int
+}
+
+input AutomaticResourcesInput {
+  minReplicaCount: Int
+  maxReplicaCount: Int
+}
+
+input MachineSpecInput {
+  machineType: String!
+  acceleratorType: AcceleratorType
+  acceleratorCount: Int
+}
+
+input UndeployModelInput {
+  deployedModelId: String!
+  trafficSplit: JSON
+}
+
+input CreateTrainingPipelineInput {
+  displayName: String!
+  trainingTaskDefinition: String!
+  trainingTaskInputs: JSON!
+  inputDataConfig: InputDataConfigInput
+  modelToUpload: CreateModelInput
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input InputDataConfigInput {
+  datasetId: String
+  annotationsFilter: String
+  fractionSplit: FractionSplitInput
+  filterSplit: FilterSplitInput
+  predefinedSplit: PredefinedSplitInput
+}
+
+input FractionSplitInput {
+  trainingFraction: Float!
+  validationFraction: Float!
+  testFraction: Float!
+}
+
+input FilterSplitInput {
+  trainingFilter: String!
+  validationFilter: String!
+  testFilter: String!
+}
+
+input PredefinedSplitInput {
+  key: String!
+}
+
+input CreateBatchPredictionJobInput {
+  displayName: String!
+  model: String
+  inputConfig: BatchPredictionInputConfigInput!
+  outputConfig: BatchPredictionOutputConfigInput!
+  dedicatedResources: BatchDedicatedResourcesInput
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input BatchPredictionInputConfigInput {
+  instancesFormat: String!
+  gcsSource: GcsSourceInput
+  bigquerySource: BigQuerySourceInput
+}
+
+input BatchPredictionOutputConfigInput {
+  predictionsFormat: String!
+  gcsDestination: GcsDestinationInput
+  bigqueryDestination: BigQueryDestinationInput
+}
+
+input BatchDedicatedResourcesInput {
+  machineSpec: MachineSpecInput!
+  startingReplicaCount: Int
+  maxReplicaCount: Int
+}
+
+input GcsSourceInput {
+  uris: [String!]!
+}
+
+input GcsDestinationInput {
+  outputUriPrefix: String!
+}
+
+input BigQuerySourceInput {
+  inputUri: String!
+}
+
+input BigQueryDestinationInput {
+  outputUri: String!
+}
+
+input CreateCustomJobInput {
+  displayName: String!
+  jobSpec: CustomJobSpecInput!
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input CustomJobSpecInput {
+  workerPoolSpecs: [WorkerPoolSpecInput!]!
+  serviceAccount: String
+  network: String
+  baseOutputDirectory: GcsDestinationInput
+  tensorboard: String
+  enableWebAccess: Boolean
+  experiment: String
+  experimentRun: String
+}
+
+input WorkerPoolSpecInput {
+  machineSpec: MachineSpecInput
+  replicaCount: Long
+  containerSpec: ContainerSpecInput
+  pythonPackageSpec: PythonPackageSpecInput
+}
+
+input ContainerSpecInput {
+  imageUri: String!
+  command: [String]
+  args: [String]
+  env: [EnvVarInput]
+}
+
+input PythonPackageSpecInput {
+  executorImageUri: String!
+  packageUris: [String!]!
+  pythonModule: String!
+  args: [String]
+  env: [EnvVarInput]
+}
+
+input CreateFeaturestoreInput {
+  displayName: String
+  description: String
+  onlineServingConfig: OnlineServingConfigInput
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input OnlineServingConfigInput {
+  fixedNodeCount: Int
+  scaling: ScalingInput
+}
+
+input ScalingInput {
+  minNodeCount: Int!
+  maxNodeCount: Int!
+  cpuUtilizationTarget: Int
+}
+
+input CreateEntityTypeInput {
+  displayName: String
+  description: String
+  labels: JSON
+}
+
+input CreateFeatureInput {
+  valueType: FeatureValueType!
+  description: String
+  labels: JSON
+  disableMonitoring: Boolean
+}
+
+input CreateIndexInput {
+  displayName: String!
+  description: String
+  metadataSchemaUri: String
+  metadata: JSON!
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+  indexUpdateMethod: IndexUpdateMethod
+}
+
+input CreateIndexEndpointInput {
+  displayName: String!
+  description: String
+  network: String
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+  enablePrivateServiceConnect: Boolean
+  publicEndpointEnabled: Boolean
+}
+
+input DeployIndexInput {
+  deployedIndex: DeployedIndexInput!
+}
+
+input DeployedIndexInput {
+  id: String!
+  index: String!
+  displayName: String
+  automaticResources: AutomaticResourcesInput
+  dedicatedResources: DedicatedResourcesInput
+  enableAccessLogging: Boolean
+}
+
+input UndeployIndexInput {
+  deployedIndexId: String!
+}
+
+input GenerateContentInput {
+  model: String!
+  contents: [ContentInput!]!
+  systemInstruction: ContentInput
+  tools: [ToolInput]
+  safetySettings: [SafetySettingInput]
+  generationConfig: GenerationConfigInput
+}
+
+input ContentInput {
+  role: String
+  parts: [PartInput!]!
+}
+
+input PartInput {
+  text: String
+  inlineData: BlobInput
+  functionCall: FunctionCallInput
+  functionResponse: FunctionResponseInput
+}
+
+input BlobInput {
+  mimeType: String!
+  data: String!
+}
+
+input FunctionCallInput {
+  name: String!
+  args: JSON
+}
+
+input FunctionResponseInput {
+  name: String!
+  response: JSON!
+}
+
+input ToolInput {
+  functionDeclarations: [FunctionDeclarationInput]
+  retrieval: RetrievalInput
+  googleSearchRetrieval: GoogleSearchRetrievalInput
+}
+
+input FunctionDeclarationInput {
+  name: String!
+  description: String
+  parameters: JSON
+}
+
+input RetrievalInput {
+  vertexAiSearch: VertexAiSearchInput
+  disableAttribution: Boolean
+}
+
+input VertexAiSearchInput {
+  datastore: String!
+}
+
+input GoogleSearchRetrievalInput {
+  dynamicRetrievalConfig: DynamicRetrievalConfigInput
+}
+
+input DynamicRetrievalConfigInput {
+  mode: DynamicRetrievalMode
+  dynamicThreshold: Float
+}
+
+enum DynamicRetrievalMode {
+  MODE_UNSPECIFIED
+  MODE_DYNAMIC
+}
+
+input SafetySettingInput {
+  category: SafetyCategory!
+  threshold: SafetyThreshold!
+}
+
+input GenerationConfigInput {
+  stopSequences: [String]
+  responseMimeType: String
+  responseSchema: JSON
+  candidateCount: Int
+  maxOutputTokens: Int
+  temperature: Float
+  topP: Float
+  topK: Int
+  presencePenalty: Float
+  frequencyPenalty: Float
+  seed: Int
+}
+
+input EmbedContentInput {
+  model: String!
+  content: ContentInput!
+  taskType: EmbedTaskType
+  title: String
+  outputDimensionality: Int
+}
+
+enum EmbedTaskType {
+  TASK_TYPE_UNSPECIFIED
+  RETRIEVAL_QUERY
+  RETRIEVAL_DOCUMENT
+  SEMANTIC_SIMILARITY
+  CLASSIFICATION
+  CLUSTERING
+  QUESTION_ANSWERING
+  FACT_VERIFICATION
+}
+
+input CreatePipelineJobInput {
+  displayName: String
+  pipelineSpec: JSON
+  labels: JSON
+  runtimeConfig: PipelineJobRuntimeConfigInput
+  encryptionSpec: EncryptionSpecInput
+  serviceAccount: String
+  network: String
+  templateUri: String
+}
+
+input PipelineJobRuntimeConfigInput {
+  parameters: JSON
+  gcsOutputDirectory: String!
+  parameterValues: JSON
+  failurePolicy: PipelineFailurePolicy
+}
+
+input CreatePipelineJobRequest {
+  parent: String!
+  pipelineJob: CreatePipelineJobInput!
+  pipelineJobId: String
+}
+
+input CreateScheduleInput {
+  displayName: String
+  cron: String!
+  startTime: DateTime
+  endTime: DateTime
+  allowQueueing: Boolean
+  maxConcurrentRunCount: Long
+  createPipelineJobRequest: CreatePipelineJobRequest
+}
+
+input CreateHyperparameterTuningJobInput {
+  displayName: String!
+  studySpec: StudySpecInput!
+  maxTrialCount: Int!
+  parallelTrialCount: Int!
+  maxFailedTrialCount: Int
+  trialJobSpec: CustomJobSpecInput!
+  labels: JSON
+  encryptionSpec: EncryptionSpecInput
+}
+
+input StudySpecInput {
+  metrics: [MetricSpecInput!]!
+  parameters: [ParameterSpecInput!]!
+  algorithm: Algorithm
+  observationNoise: ObservationNoise
+  measurementSelectionType: MeasurementSelectionType
+}
+
+input MetricSpecInput {
+  metricId: String!
+  goal: MetricGoal!
+}
+
+input ParameterSpecInput {
+  parameterId: String!
+  doubleValueSpec: DoubleValueSpecInput
+  integerValueSpec: IntegerValueSpecInput
+  categoricalValueSpec: CategoricalValueSpecInput
+  discreteValueSpec: DiscreteValueSpecInput
+  scaleType: ScaleType
+}
+
+input DoubleValueSpecInput {
+  minValue: Float!
+  maxValue: Float!
+  defaultValue: Float
+}
+
+input IntegerValueSpecInput {
+  minValue: Long!
+  maxValue: Long!
+  defaultValue: Long
+}
+
+input CategoricalValueSpecInput {
+  values: [String!]!
+  defaultValue: String
+}
+
+input DiscreteValueSpecInput {
+  values: [Float!]!
+  defaultValue: Float
+}
+
+input CreateFeatureGroupInput {
+  displayName: String
+  description: String
+  bigQuery: BigQuerySourceInput!
+  labels: JSON
+}
+
+input CreateFeatureViewInput {
+  displayName: String
+  labels: JSON
+  bigQuerySource: BigQuerySourceInput
+  syncConfig: FeatureViewSyncConfigInput
+}
+
+input FeatureViewSyncConfigInput {
+  cron: String
+}
+
+input PredictInput {
+  endpointName: String!
+  instances: [JSON!]!
+  parameters: JSON
+}
+
+input RawPredictInput {
+  endpointName: String!
+  httpBody: JSON!
+}
+
+input FindNeighborsInput {
+  indexEndpoint: String!
+  deployedIndexId: String!
+  queries: [FindNeighborsQueryInput!]!
+  returnFullDatapoint: Boolean
+}
+
+input FindNeighborsQueryInput {
+  datapoint: IndexDatapointInput!
+  neighborCount: Int
+  approximateNeighborCount: Int
+  fractionLeafNodesToSearchOverride: Float64
+  perCrowdingAttributeNeighborCount: Long
+}
+
+input IndexDatapointInput {
+  datapointId: String!
+  featureVector: [Float!]!
+  restricts: [NamespaceInput]
+  numericRestricts: [NumericRestrictInput]
+  crowdingTag: CrowdingTagInput
+}
+
+input NamespaceInput {
+  name: String!
+  allowList: [String]
+  denyList: [String]
+}
+
+input NumericRestrictInput {
+  name: String!
+  valueInt: Long
+  valueFloat: Float
+  valueDouble: Float64
+  op: NumericRestrictOp
+}
+
+enum NumericRestrictOp {
+  UNKNOWN
+  LESS
+  LESS_EQUAL
+  EQUAL
+  GREATER_EQUAL
+  GREATER
+  NOT_EQUAL
+}
+
+input CrowdingTagInput {
+  crowdingAttribute: String!
+}
+
+input ImportFeatureValuesInput {
+  featurestoreId: String!
+  entityTypeId: String!
+  featureSpecs: [ImportFeatureValuesSpecInput!]!
+  gcsSource: GcsSourceInput
+  bigquerySource: BigQuerySourceInput
+  entityIdField: String
+  workerCount: Int
+}
+
+input ImportFeatureValuesSpecInput {
+  id: String!
+  sourceField: String
+}
+
+input UpsertDatapointsInput {
+  index: String!
+  datapoints: [IndexDatapointInput!]!
+}
+
+input RemoveDatapointsInput {
+  index: String!
+  datapointIds: [String!]!
+}
+
+# ---------------------------------------------------------------------------
+# Result / Response Types for Mutations
+# ---------------------------------------------------------------------------
+
+type PredictResponse {
+  predictions: [JSON]
+  deployedModelId: String
+  model: String
+  modelDisplayName: String
+  modelVersionId: String
+  metadata: JSON
+}
+
+type FindNeighborsResponse {
+  nearestNeighbors: [FindNeighborsResponseNearestNeighbors!]!
+}
+
+type FindNeighborsResponseNearestNeighbors {
+  id: String!
+  neighbors: [FindNeighborsResponseNeighbor!]!
+}
+
+type FindNeighborsResponseNeighbor {
+  datapoint: IndexDatapoint
+  distance: Float64
+  sparseDistance: Float64
+}
+
+type IndexDatapoint {
+  datapointId: String!
+  featureVector: [Float]
+  restricts: [Namespace]
+  numericRestricts: [NumericRestrict]
+  crowdingTag: CrowdingTag
+}
+
+type Namespace {
+  name: String!
+  allowList: [String]
+  denyList: [String]
+}
+
+type NumericRestrict {
+  name: String!
+  valueInt: Long
+  valueFloat: Float
+  valueDouble: Float64
+  op: NumericRestrictOp
+}
+
+type CrowdingTag {
+  crowdingAttribute: String!
+}
+
+type UpsertDatapointsResponse {
+  success: Boolean!
+}
+
+type RemoveDatapointsResponse {
+  success: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Query Root
+# ---------------------------------------------------------------------------
+
+type Query {
+  # Datasets
+  dataset(name: ID!): Dataset
+  datasets(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+    orderBy: String
+  ): DatasetConnection!
+
+  dataItem(name: ID!): DataItem
+  dataItems(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+    orderBy: String
+  ): [DataItem]
+
+  # Models
+  model(name: ID!): Model
+  models(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+    orderBy: String
+  ): ModelConnection!
+
+  modelVersions(
+    name: ID!
+    pageSize: Int
+    pageToken: String
+    filter: String
+    readMask: String
+    orderBy: String
+  ): [ModelVersion]
+
+  modelEvaluation(name: ID!): ModelEvaluation
+  modelEvaluations(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): ModelEvaluationConnection!
+
+  modelEvaluationSlice(name: ID!): ModelEvaluationSlice
+  modelEvaluationSlices(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): [ModelEvaluationSlice]
+
+  # Endpoints
+  endpoint(name: ID!): Endpoint
+  endpoints(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+    orderBy: String
+  ): EndpointConnection!
+
+  # Training Pipelines
+  trainingPipeline(name: ID!): TrainingPipeline
+  trainingPipelines(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+  ): TrainingPipelineConnection!
+
+  # Pipeline Jobs
+  pipelineJob(name: ID!): PipelineJob
+  pipelineJobs(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): PipelineJobConnection!
+
+  # Batch Prediction
+  batchPredictionJob(name: ID!): BatchPredictionJob
+  batchPredictionJobs(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+  ): BatchPredictionJobConnection!
+
+  # Custom Jobs
+  customJob(name: ID!): CustomJob
+  customJobs(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    readMask: String
+  ): CustomJobConnection!
+
+  # Hyperparameter Tuning
+  hyperparameterTuningJob(name: ID!): HyperparameterTuningJob
+  hyperparameterTuningJobs(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): [HyperparameterTuningJob]
+
+  # NAS
+  nasJob(name: ID!): NasJob
+  nasJobs(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): [NasJob]
+
+  # Feature Store
+  featurestore(name: ID!): Featurestore
+  featurestores(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): FeaturestoreConnection!
+
+  entityType(name: ID!): EntityType
+  entityTypes(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): EntityTypeConnection!
+
+  feature(name: ID!): Feature
+  features(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): FeatureConnection!
+
+  featureGroup(name: ID!): FeatureGroup
+  featureGroups(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): [FeatureGroup]
+
+  featureView(name: ID!): FeatureView
+  featureViews(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): [FeatureView]
+
+  # Indexes
+  index(name: ID!): Index
+  indexes(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): IndexConnection!
+
+  indexEndpoint(name: ID!): IndexEndpoint
+  indexEndpoints(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): IndexEndpointConnection!
+
+  # Metadata
+  metadataStore(name: ID!): MetadataStore
+  metadataStores(
+    parent: String!
+    pageSize: Int
+    pageToken: String
+  ): [MetadataStore]
+
+  artifact(name: ID!): Artifact
+  artifacts(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): ArtifactConnection!
+
+  execution(name: ID!): Execution
+  executions(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): ExecutionConnection!
+
+  context(name: ID!): Context
+  contexts(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): ContextConnection!
+
+  # Model Garden / Publisher Models
+  publisherModel(name: ID!): PublisherModel
+  publisherModels(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+    languageCode: String
+  ): PublisherModelConnection!
+
+  # Schedules
+  schedule(name: ID!): Schedule
+  schedules(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): ScheduleConnection!
+
+  # Tensorboard
+  tensorboard(name: ID!): Tensorboard
+  tensorboards(
+    parent: String!
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): [Tensorboard]
+
+  tensorboardExperiment(name: ID!): TensorboardExperiment
+  tensorboardExperiments(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): [TensorboardExperiment]
+
+  tensorboardRun(name: ID!): TensorboardRun
+  tensorboardRuns(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): [TensorboardRun]
+
+  # Experiments (Vertex ML Metadata via Experiments API)
+  experiment(name: ID!): Experiment
+  experiments(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): ExperimentConnection!
+
+  experimentRun(name: ID!): ExperimentRun
+  experimentRuns(
+    parent: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+    orderBy: String
+  ): ExperimentRunConnection!
+
+  # Operations
+  operation(name: ID!): Operation
+
+  # Locations
+  location(name: ID!): Location
+  locations(
+    name: String!
+    filter: String
+    pageSize: Int
+    pageToken: String
+  ): [Location]
+}
+
+# ---------------------------------------------------------------------------
+# Mutation Root
+# ---------------------------------------------------------------------------
+
+type Mutation {
+  # Datasets
+  createDataset(parent: String!, dataset: CreateDatasetInput!): Operation!
+  updateDataset(name: ID!, dataset: UpdateDatasetInput!): Dataset!
+  deleteDataset(name: ID!): Operation!
+  importData(name: ID!, importConfigs: [JSON!]!): Operation!
+  exportData(name: ID!, outputConfig: JSON!): Operation!
+
+  # Models
+  uploadModel(parent: String!, model: CreateModelInput!): Operation!
+  updateModel(name: ID!, model: UpdateModelInput!): Model!
+  deleteModel(name: ID!): Operation!
+  exportModel(name: ID!, outputConfig: JSON!): Operation!
+  copyModel(parent: String!, sourceModel: String!, encryptionSpec: EncryptionSpecInput): Operation!
+  mergeVersionAliases(name: ID!, versionAliases: [String!]!): Model!
+  deleteModelVersion(name: ID!): Operation!
+
+  # Endpoints
+  createEndpoint(parent: String!, endpoint: CreateEndpointInput!, endpointId: String): Operation!
+  updateEndpoint(name: ID!, endpoint: UpdateEndpointInput!): Endpoint!
+  deleteEndpoint(name: ID!): Operation!
+  deployModel(endpoint: String!, deployModel: DeployModelInput!): Operation!
+  undeployModel(endpoint: String!, undeployModel: UndeployModelInput!): Operation!
+  predict(input: PredictInput!): PredictResponse!
+  rawPredict(input: RawPredictInput!): JSON!
+  serverStreamingPredict(endpoint: String!, input: JSON!): JSON!
+
+  # Training Pipelines
+  createTrainingPipeline(parent: String!, trainingPipeline: CreateTrainingPipelineInput!): TrainingPipeline!
+  cancelTrainingPipeline(name: ID!): Boolean!
+  deleteTrainingPipeline(name: ID!): Operation!
+
+  # Pipeline Jobs
+  createPipelineJob(parent: String!, pipelineJob: CreatePipelineJobInput!, pipelineJobId: String): PipelineJob!
+  cancelPipelineJob(name: ID!): Boolean!
+  deletePipelineJob(name: ID!): Operation!
+  batchDeletePipelineJobs(parent: String!, names: [String!]!): Operation!
+  batchCancelPipelineJobs(parent: String!, names: [String!]!): Operation!
+
+  # Batch Prediction
+  createBatchPredictionJob(parent: String!, job: CreateBatchPredictionJobInput!): BatchPredictionJob!
+  cancelBatchPredictionJob(name: ID!): Boolean!
+  deleteBatchPredictionJob(name: ID!): Operation!
+
+  # Custom Jobs
+  createCustomJob(parent: String!, job: CreateCustomJobInput!): CustomJob!
+  cancelCustomJob(name: ID!): Boolean!
+  deleteCustomJob(name: ID!): Operation!
+
+  # Hyperparameter Tuning
+  createHyperparameterTuningJob(parent: String!, job: CreateHyperparameterTuningJobInput!): HyperparameterTuningJob!
+  cancelHyperparameterTuningJob(name: ID!): Boolean!
+  deleteHyperparameterTuningJob(name: ID!): Operation!
+
+  # NAS Jobs
+  cancelNasJob(name: ID!): Boolean!
+  deleteNasJob(name: ID!): Operation!
+
+  # Feature Store
+  createFeaturestore(parent: String!, featurestore: CreateFeaturestoreInput!, featurestoreId: String): Operation!
+  updateFeaturestore(name: ID!, featurestore: CreateFeaturestoreInput!): Operation!
+  deleteFeaturestore(name: ID!, force: Boolean): Operation!
+
+  createEntityType(parent: String!, entityType: CreateEntityTypeInput!, entityTypeId: String): Operation!
+  updateEntityType(name: ID!, entityType: CreateEntityTypeInput!): EntityType!
+  deleteEntityType(name: ID!, force: Boolean): Operation!
+
+  createFeature(parent: String!, feature: CreateFeatureInput!, featureId: String!): Operation!
+  batchCreateFeatures(parent: String!, requests: [JSON!]!): Operation!
+  updateFeature(name: ID!, feature: CreateFeatureInput!): Feature!
+  deleteFeature(name: ID!): Operation!
+  importFeatureValues(parent: String!, input: ImportFeatureValuesInput!): Operation!
+  batchReadFeatureValues(featurestore: String!, input: JSON!): Operation!
+  exportFeatureValues(entityType: String!, destination: JSON!, featureSelector: JSON!): Operation!
+
+  createFeatureGroup(parent: String!, featureGroup: CreateFeatureGroupInput!, featureGroupId: String): Operation!
+  updateFeatureGroup(name: ID!, featureGroup: CreateFeatureGroupInput!): Operation!
+  deleteFeatureGroup(name: ID!, force: Boolean): Operation!
+
+  createFeatureView(parent: String!, featureView: CreateFeatureViewInput!, featureViewId: String): Operation!
+  updateFeatureView(name: ID!, featureView: CreateFeatureViewInput!): Operation!
+  deleteFeatureView(name: ID!): Operation!
+  syncFeatureView(name: ID!): JSON!
+
+  # Indexes
+  createIndex(parent: String!, index: CreateIndexInput!): Operation!
+  updateIndex(name: ID!, index: CreateIndexInput!): Operation!
+  deleteIndex(name: ID!): Operation!
+  upsertDatapoints(input: UpsertDatapointsInput!): UpsertDatapointsResponse!
+  removeDatapoints(input: RemoveDatapointsInput!): RemoveDatapointsResponse!
+
+  # Index Endpoints
+  createIndexEndpoint(parent: String!, indexEndpoint: CreateIndexEndpointInput!, indexEndpointId: String): Operation!
+  updateIndexEndpoint(name: ID!, indexEndpoint: CreateIndexEndpointInput!): IndexEndpoint!
+  deleteIndexEndpoint(name: ID!): Operation!
+  deployIndex(indexEndpoint: String!, input: DeployIndexInput!): Operation!
+  undeployIndex(indexEndpoint: String!, input: UndeployIndexInput!): Operation!
+  findNeighbors(input: FindNeighborsInput!): FindNeighborsResponse!
+
+  # Metadata
+  createMetadataStore(parent: String!, metadataStore: JSON!, metadataStoreId: String): Operation!
+  deleteMetadataStore(name: ID!, force: Boolean): Operation!
+
+  createArtifact(parent: String!, artifact: JSON!, artifactId: String): Artifact!
+  updateArtifact(name: ID!, artifact: JSON!): Artifact!
+  deleteArtifact(name: ID!, etag: String): Operation!
+  purgeArtifacts(parent: String!, filter: String!, force: Boolean): Operation!
+
+  createExecution(parent: String!, execution: JSON!, executionId: String): Execution!
+  updateExecution(name: ID!, execution: JSON!): Execution!
+  deleteExecution(name: ID!, etag: String): Operation!
+  purgeExecutions(parent: String!, filter: String!, force: Boolean): Operation!
+  addExecutionEvents(name: ID!, events: [JSON!]!): Boolean!
+
+  createContext(parent: String!, context: JSON!, contextId: String): Context!
+  updateContext(name: ID!, context: JSON!): Context!
+  deleteContext(name: ID!, force: Boolean, etag: String): Operation!
+  purgeContexts(parent: String!, filter: String!, force: Boolean): Operation!
+  addContextArtifactsAndExecutions(context: String!, artifacts: [String], executions: [String]): Boolean!
+  addContextChildren(context: String!, childContexts: [String!]!): Boolean!
+  removeContextChildren(context: String!, childContexts: [String!]!): Boolean!
+
+  # Schedules
+  createSchedule(parent: String!, schedule: CreateScheduleInput!): Schedule!
+  updateSchedule(name: ID!, schedule: CreateScheduleInput!): Schedule!
+  deleteSchedule(name: ID!): Operation!
+  pauseSchedule(name: ID!): Boolean!
+  resumeSchedule(name: ID!, catchUp: Boolean): Boolean!
+
+  # Tensorboard
+  createTensorboard(parent: String!, tensorboard: JSON!): Operation!
+  updateTensorboard(name: ID!, tensorboard: JSON!): Operation!
+  deleteTensorboard(name: ID!): Operation!
+
+  createTensorboardExperiment(parent: String!, experiment: JSON!, tensorboardExperimentId: String): TensorboardExperiment!
+  updateTensorboardExperiment(name: ID!, experiment: JSON!): TensorboardExperiment!
+  deleteTensorboardExperiment(name: ID!): Operation!
+
+  createTensorboardRun(parent: String!, run: JSON!, tensorboardRunId: String): TensorboardRun!
+  batchCreateTensorboardRuns(parent: String!, requests: [JSON!]!): [TensorboardRun]
+  updateTensorboardRun(name: ID!, run: JSON!): TensorboardRun!
+  deleteTensorboardRun(name: ID!): Operation!
+  writeTensorboardRunData(tensorboardRun: String!, timeSeriesData: [JSON!]!): Boolean!
+
+  # Model Garden / Generative AI
+  generateContent(input: GenerateContentInput!): GenerateContentResponse!
+  streamGenerateContent(input: GenerateContentInput!): GenerateContentResponse!
+  embedContent(input: EmbedContentInput!): EmbedContentResponse!
+  batchEmbedContents(model: String!, requests: [EmbedContentInput!]!): [EmbedContentResponse]
+
+  # Operations
+  cancelOperation(name: ID!): Boolean!
+  deleteOperation(name: ID!): Boolean!
+  waitOperation(name: ID!, timeout: String): Operation!
+}
+
+# ---------------------------------------------------------------------------
+# Subscription Root
+# ---------------------------------------------------------------------------
+
+type Subscription {
+  # Job state changes
+  customJobStateChanged(name: ID!): CustomJob!
+  batchPredictionJobStateChanged(name: ID!): BatchPredictionJob!
+  trainingPipelineStateChanged(name: ID!): TrainingPipeline!
+  pipelineJobStateChanged(name: ID!): PipelineJob!
+  hyperparameterTuningJobStateChanged(name: ID!): HyperparameterTuningJob!
+  nasJobStateChanged(name: ID!): NasJob!
+
+  # Operation completion
+  operationCompleted(name: ID!): Operation!
+
+  # Model deployment events
+  modelDeployed(endpointName: String!): DeployedModel!
+  modelUndeployed(endpointName: String!): String!
+
+  # Feature view sync
+  featureViewSyncCompleted(featureViewName: String!): FeatureView!
+
+  # Index update
+  indexUpdated(indexName: String!): Index!
+
+  # Tensorboard data streaming
+  tensorboardRunDataWritten(tensorboardRunName: String!): JSON!
+
+  # Pipeline task updates
+  pipelineTaskStateChanged(pipelineJobName: ID!): PipelineTaskDetail!
+
+  # Experiment run updates
+  experimentRunStateChanged(experimentRunName: ID!): ExperimentRun!
+}
