@@ -3,7 +3,7 @@ name: Google Vertex AI
 description: Google Vertex AI is a machine learning platform that enables developers
   and data scientists to build, deploy, and scale ML models, including generative
   AI models, with pre-trained APIs, AutoML, and custom training capabilities.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/google-vertex-ai/refs/heads/main/apis.yml
 created: '2026-03-13'
 modified: '2026-05-19'
@@ -20,7 +20,7 @@ apis:
   description: The Google Vertex AI API provides programmatic access to build, deploy,
     and manage machine learning models, run predictions, manage datasets, and orchestrate
     ML pipelines on Google Cloud.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://cloud.google.com/vertex-ai/docs
   baseURL: https://us-central1-aiplatform.googleapis.com/v1
   tags:
