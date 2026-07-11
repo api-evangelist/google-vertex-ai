@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.google.com/o/oauth2/auth
+    tokenUrl: https://oauth2.googleapis.com/token
+scopes:
+- scope: https://www.googleapis.com/auth/cloud-platform
+  description: Full access to Google Cloud Platform resources
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.yml
