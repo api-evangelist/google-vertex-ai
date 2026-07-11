@@ -44,6 +44,12 @@ apis:
   - url: graphql/google-vertex-ai-graphql.md
     type: GraphQL
 common:
+- type: VulnerabilityDisclosure
+  url: security/google-vertex-ai-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/google-vertex-ai-domain-security.yml
+- type: Authentication
+  url: authentication/google-vertex-ai-authentication.yml
 - type: OAuthScopes
   url: scopes/google-vertex-ai-scopes.yml
 - type: GitHubOrganization
