@@ -1,0 +1,14 @@
+{
+  "repo": "google-vertex-ai",
+  "feeds": [
+    {
+      "source": "https://docs.cloud.google.com/feeds/vertex-ai-release-notes.xml",
+      "feed_url": "https://docs.cloud.google.com/feeds/vertex-ai-release-notes.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 30
+}
