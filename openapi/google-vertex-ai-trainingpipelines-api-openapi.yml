@@ -1,0 +1,63 @@
+openapi: 3.1.0
+info:
+  title: Google Vertex AI Datasets TrainingPipelines API
+  description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
+  version: v1
+  contact:
+    name: Google Cloud
+    url: https://cloud.google.com/vertex-ai/docs
+servers:
+- url: https://us-central1-aiplatform.googleapis.com/v1
+  description: Google Vertex AI production endpoint (us-central1)
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/cloud-platform
+tags:
+- name: TrainingPipelines
+  description: Manage training pipelines
+paths:
+  /projects/{project}/locations/{location}/trainingPipelines:
+    get:
+      operationId: listTrainingPipelines
+      summary: Google Vertex AI List training pipelines
+      description: Lists training pipelines in the specified project and location.
+      tags:
+      - TrainingPipelines
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingPipelineList'
+components:
+  schemas:
+    TrainingPipelineList:
+      type: object
+      properties:
+        trainingPipelines:
+          type: array
+          items:
+            type: object
+        nextPageToken:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to Google Cloud Platform resources

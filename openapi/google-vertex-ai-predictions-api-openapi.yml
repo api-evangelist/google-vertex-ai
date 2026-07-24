@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Google Vertex AI Datasets Predictions API
+  description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
+  version: v1
+  contact:
+    name: Google Cloud
+    url: https://cloud.google.com/vertex-ai/docs
+servers:
+- url: https://us-central1-aiplatform.googleapis.com/v1
+  description: Google Vertex AI production endpoint (us-central1)
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/cloud-platform
+tags:
+- name: Predictions
+  description: Run predictions using deployed models
+paths:
+  /projects/{project}/locations/{location}/endpoints/{endpoint}:predict:
+    post:
+      operationId: predict
+      summary: Google Vertex AI Run a prediction
+      description: Runs a prediction against a deployed model on the specified endpoint.
+      tags:
+      - Predictions
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredictRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredictResponse'
+components:
+  schemas:
+    PredictResponse:
+      type: object
+      properties:
+        predictions:
+          type: array
+          items:
+            type: object
+          description: Prediction results
+        deployedModelId:
+          type: string
+    PredictRequest:
+      type: object
+      properties:
+        instances:
+          type: array
+          items:
+            type: object
+          description: Instances to make predictions on
+        parameters:
+          type: object
+          description: Parameters for the prediction
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to Google Cloud Platform resources

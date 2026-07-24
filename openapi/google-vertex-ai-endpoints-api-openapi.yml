@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Google Vertex AI Datasets Endpoints API
+  description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
+  version: v1
+  contact:
+    name: Google Cloud
+    url: https://cloud.google.com/vertex-ai/docs
+servers:
+- url: https://us-central1-aiplatform.googleapis.com/v1
+  description: Google Vertex AI production endpoint (us-central1)
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/cloud-platform
+tags:
+- name: Endpoints
+  description: Manage prediction endpoints
+paths:
+  /projects/{project}/locations/{location}/endpoints:
+    get:
+      operationId: listEndpoints
+      summary: Google Vertex AI List endpoints
+      description: Lists endpoints in the specified project and location.
+      tags:
+      - Endpoints
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointList'
+    post:
+      operationId: createEndpoint
+      summary: Google Vertex AI Create an endpoint
+      description: Creates an endpoint for deploying models.
+      tags:
+      - Endpoints
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Endpoint'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+components:
+  schemas:
+    Operation:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+        response:
+          type: object
+    EndpointList:
+      type: object
+      properties:
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Endpoint'
+        nextPageToken:
+          type: string
+    Endpoint:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Resource name of the endpoint
+        displayName:
+          type: string
+          description: Display name of the endpoint
+        description:
+          type: string
+        deployedModels:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              model:
+                type: string
+              displayName:
+                type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to Google Cloud Platform resources

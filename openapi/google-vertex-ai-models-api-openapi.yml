@@ -1,0 +1,167 @@
+openapi: 3.1.0
+info:
+  title: Google Vertex AI Datasets Models API
+  description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
+  version: v1
+  contact:
+    name: Google Cloud
+    url: https://cloud.google.com/vertex-ai/docs
+servers:
+- url: https://us-central1-aiplatform.googleapis.com/v1
+  description: Google Vertex AI production endpoint (us-central1)
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/cloud-platform
+tags:
+- name: Models
+  description: Manage ML models
+paths:
+  /projects/{project}/locations/{location}/models:
+    get:
+      operationId: listModels
+      summary: Google Vertex AI List models
+      description: Lists models in the specified project and location.
+      tags:
+      - Models
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+  /projects/{project}/locations/{location}/models/{model}:
+    get:
+      operationId: getModel
+      summary: Google Vertex AI Get a model
+      description: Gets a model by resource name.
+      tags:
+      - Models
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: model
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+    delete:
+      operationId: deleteModel
+      summary: Google Vertex AI Delete a model
+      description: Deletes a model and all of its versions.
+      tags:
+      - Models
+      parameters:
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: model
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+components:
+  schemas:
+    Operation:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+        response:
+          type: object
+    ModelList:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+        nextPageToken:
+          type: string
+    Model:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Resource name of the model
+        displayName:
+          type: string
+          description: Display name of the model
+        description:
+          type: string
+          description: Description of the model
+        versionId:
+          type: string
+          description: Version ID of the model
+        containerSpec:
+          type: object
+          properties:
+            imageUri:
+              type: string
+              description: URI of the container image
+        deployedModels:
+          type: array
+          items:
+            type: object
+            properties:
+              endpoint:
+                type: string
+              deployedModelId:
+                type: string
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: Full access to Google Cloud Platform resources
