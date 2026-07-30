@@ -3,7 +3,20 @@ name: Google Vertex AI
 description: Google Vertex AI is a machine learning platform that enables developers
   and data scientists to build, deploy, and scale ML models, including generative
   AI models, with pre-trained APIs, AutoML, and custom training capabilities.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/google-vertex-ai.png
 url: https://raw.githubusercontent.com/api-evangelist/google-vertex-ai/refs/heads/main/apis.yml
 created: '2026-03-13'
 modified: '2026-05-19'
@@ -16,23 +29,18 @@ tags:
 - Machine Learning
 - ML Models
 apis:
-- name: Google Vertex AI API
-  description: The Google Vertex AI API provides programmatic access to build, deploy,
-    and manage machine learning models, run predictions, manage datasets, and orchestrate
-    ML pipelines on Google Cloud.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: google-vertex-ai:google-vertex-ai-datasets-api
+  name: Google Vertex AI Datasets API
+  description: Manage training datasets
   humanURL: https://cloud.google.com/vertex-ai/docs
   baseURL: https://us-central1-aiplatform.googleapis.com/v1
   tags:
-  - Machine Learning
-  - Models
-  - Predictions
-  - Training
+  - Datasets
   properties:
+  - type: OpenAPI
+    url: openapi/google-vertex-ai-datasets-api-openapi.yml
   - type: Documentation
     url: https://cloud.google.com/vertex-ai/docs/reference/rest
-  - type: OpenAPI
-    url: openapi/openapi.yml
   - type: Authentication
     url: https://cloud.google.com/vertex-ai/docs/general/authentication
   - type: GettingStarted
@@ -41,9 +49,99 @@ apis:
     url: json-schema/json-schema.yml
   - type: JSONLDContext
     url: json-ld/json-ld.yml
-  - url: graphql/google-vertex-ai-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/google-vertex-ai-graphql.md
+- aid: google-vertex-ai:google-vertex-ai-endpoints-api
+  name: Google Vertex AI Endpoints API
+  description: Manage prediction endpoints
+  humanURL: https://cloud.google.com/vertex-ai/docs
+  baseURL: https://us-central1-aiplatform.googleapis.com/v1
+  tags:
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/google-vertex-ai-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://cloud.google.com/vertex-ai/docs/reference/rest
+  - type: Authentication
+    url: https://cloud.google.com/vertex-ai/docs/general/authentication
+  - type: GettingStarted
+    url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLDContext
+    url: json-ld/json-ld.yml
+  - type: GraphQL
+    url: graphql/google-vertex-ai-graphql.md
+- aid: google-vertex-ai:google-vertex-ai-models-api
+  name: Google Vertex AI Models API
+  description: Manage ML models
+  humanURL: https://cloud.google.com/vertex-ai/docs
+  baseURL: https://us-central1-aiplatform.googleapis.com/v1
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/google-vertex-ai-models-api-openapi.yml
+  - type: Documentation
+    url: https://cloud.google.com/vertex-ai/docs/reference/rest
+  - type: Authentication
+    url: https://cloud.google.com/vertex-ai/docs/general/authentication
+  - type: GettingStarted
+    url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLDContext
+    url: json-ld/json-ld.yml
+  - type: GraphQL
+    url: graphql/google-vertex-ai-graphql.md
+- aid: google-vertex-ai:google-vertex-ai-predictions-api
+  name: Google Vertex AI Predictions API
+  description: Run predictions using deployed models
+  humanURL: https://cloud.google.com/vertex-ai/docs
+  baseURL: https://us-central1-aiplatform.googleapis.com/v1
+  tags:
+  - Predictions
+  properties:
+  - type: OpenAPI
+    url: openapi/google-vertex-ai-predictions-api-openapi.yml
+  - type: Documentation
+    url: https://cloud.google.com/vertex-ai/docs/reference/rest
+  - type: Authentication
+    url: https://cloud.google.com/vertex-ai/docs/general/authentication
+  - type: GettingStarted
+    url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLDContext
+    url: json-ld/json-ld.yml
+  - type: GraphQL
+    url: graphql/google-vertex-ai-graphql.md
+- aid: google-vertex-ai:google-vertex-ai-trainingpipelines-api
+  name: Google Vertex AI TrainingPipelines API
+  description: Manage training pipelines
+  humanURL: https://cloud.google.com/vertex-ai/docs
+  baseURL: https://us-central1-aiplatform.googleapis.com/v1
+  tags:
+  - TrainingPipelines
+  properties:
+  - type: OpenAPI
+    url: openapi/google-vertex-ai-trainingpipelines-api-openapi.yml
+  - type: Documentation
+    url: https://cloud.google.com/vertex-ai/docs/reference/rest
+  - type: Authentication
+    url: https://cloud.google.com/vertex-ai/docs/general/authentication
+  - type: GettingStarted
+    url: https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLDContext
+    url: json-ld/json-ld.yml
+  - type: GraphQL
+    url: graphql/google-vertex-ai-graphql.md
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/google-vertex-ai/overview
 - type: AgenticAccess
   url: agentic-access/google-vertex-ai-agentic-access.yml
 - type: VulnerabilityDisclosure
