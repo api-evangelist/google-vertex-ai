@@ -1,0 +1,430 @@
+{
+  "info": {
+    "_postman_id": "b8d3b259-a233-4e75-8990-8ec12ccffe23",
+    "name": "Google Vertex AI Datasets Models API",
+    "description": "Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.\n\nContact Support:\n Name: Google Cloud",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:50:32.000Z",
+    "updatedAt": "2026-07-28T01:50:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b8d3b259-a233-4e75-8990-8ec12ccffe23"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "{project}",
+          "item": [
+            {
+              "name": "locations",
+              "item": [
+                {
+                  "name": "{location}",
+                  "item": [
+                    {
+                      "name": "models",
+                      "item": [
+                        {
+                          "name": "{model}",
+                          "item": [
+                            {
+                              "name": "Google Vertex AI Get a model",
+                              "id": "1e490d1a-cfcb-4316-b117-03df75cfd775",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/models/:model",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "models",
+                                    ":model"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b3205272-b89e-4804-87e0-dcf3f2a23dfe",
+                                      "key": "project",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "7f218f80-8c5f-452b-897b-c18234433da1",
+                                      "key": "location",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "4adce1b1-0e6e-4060-9f58-1f45c8bd3e56",
+                                      "key": "model",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Gets a model by resource name."
+                              },
+                              "response": [
+                                {
+                                  "id": "3cbbdfee-0487-4b06-97a3-eef5922ccb80",
+                                  "name": "Successful response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/projects/:project/locations/:location/models/:model",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "projects",
+                                        ":project",
+                                        "locations",
+                                        ":location",
+                                        "models",
+                                        ":model"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "project"
+                                        },
+                                        {
+                                          "key": "location"
+                                        },
+                                        {
+                                          "key": "model"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"name\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"versionId\": \"<string>\",\n  \"containerSpec\": {\n    \"imageUri\": \"<string>\"\n  },\n  \"deployedModels\": [\n    {\n      \"endpoint\": \"<string>\",\n      \"deployedModelId\": \"<string>\"\n    },\n    {\n      \"endpoint\": \"<string>\",\n      \"deployedModelId\": \"<string>\"\n    }\n  ],\n  \"createTime\": \"<dateTime>\",\n  \"updateTime\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T01:50:33.000Z",
+                                  "updatedAt": "2026-07-28T01:50:33.000Z",
+                                  "uid": "35240-3cbbdfee-0487-4b06-97a3-eef5922ccb80"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:50:33.000Z",
+                              "updatedAt": "2026-07-28T01:50:33.000Z",
+                              "uid": "35240-1e490d1a-cfcb-4316-b117-03df75cfd775"
+                            },
+                            {
+                              "name": "Google Vertex AI Delete a model",
+                              "id": "c41a7933-334d-49ed-86a1-e05b5a06f644",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/models/:model",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "models",
+                                    ":model"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a37db804-225d-4eab-84a3-1ab6272c9612",
+                                      "key": "project",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "0104f7c5-6491-4d76-8a6b-39c6baab882c",
+                                      "key": "location",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "3b7c3e3d-29a1-44df-ae3c-29392ab83f01",
+                                      "key": "model",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Deletes a model and all of its versions."
+                              },
+                              "response": [
+                                {
+                                  "id": "2d63602a-d073-4a85-bf09-1c0558710103",
+                                  "name": "Successful response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/projects/:project/locations/:location/models/:model",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "projects",
+                                        ":project",
+                                        "locations",
+                                        ":location",
+                                        "models",
+                                        ":model"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "project"
+                                        },
+                                        {
+                                          "key": "location"
+                                        },
+                                        {
+                                          "key": "model"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"name\": \"<string>\",\n  \"done\": \"<boolean>\",\n  \"response\": {}\n}",
+                                  "createdAt": "2026-07-28T01:50:33.000Z",
+                                  "updatedAt": "2026-07-28T01:50:33.000Z",
+                                  "uid": "35240-2d63602a-d073-4a85-bf09-1c0558710103"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:50:33.000Z",
+                              "updatedAt": "2026-07-28T01:50:33.000Z",
+                              "uid": "35240-c41a7933-334d-49ed-86a1-e05b5a06f644"
+                            }
+                          ],
+                          "id": "4f1780aa-e1f6-4610-80dd-b1a90edf5c9f",
+                          "createdAt": "2026-07-28T01:50:33.000Z",
+                          "updatedAt": "2026-07-28T01:50:33.000Z",
+                          "uid": "35240-4f1780aa-e1f6-4610-80dd-b1a90edf5c9f"
+                        },
+                        {
+                          "name": "Google Vertex AI List models",
+                          "id": "572f388f-deeb-4065-a471-cf8d5bcc3a3b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:project/locations/:location/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":project",
+                                "locations",
+                                ":location",
+                                "models"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8d4b865f-cdf1-4139-a63c-6ab8e59035be",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "41c83ac7-9cd4-42bd-ba25-4c9eb650f8c7",
+                                  "key": "location",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Lists models in the specified project and location."
+                          },
+                          "response": [
+                            {
+                              "id": "e3da8601-40ef-4c8e-a1f9-c6a20b6a787d",
+                              "name": "Successful response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "location"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"models\": [\n    {\n      \"name\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"description\": \"<string>\",\n      \"versionId\": \"<string>\",\n      \"containerSpec\": {\n        \"imageUri\": \"<string>\"\n      },\n      \"deployedModels\": [\n        {\n          \"endpoint\": \"<string>\",\n          \"deployedModelId\": \"<string>\"\n        },\n        {\n          \"endpoint\": \"<string>\",\n          \"deployedModelId\": \"<string>\"\n        }\n      ],\n      \"createTime\": \"<dateTime>\",\n      \"updateTime\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"description\": \"<string>\",\n      \"versionId\": \"<string>\",\n      \"containerSpec\": {\n        \"imageUri\": \"<string>\"\n      },\n      \"deployedModels\": [\n        {\n          \"endpoint\": \"<string>\",\n          \"deployedModelId\": \"<string>\"\n        },\n        {\n          \"endpoint\": \"<string>\",\n          \"deployedModelId\": \"<string>\"\n        }\n      ],\n      \"createTime\": \"<dateTime>\",\n      \"updateTime\": \"<dateTime>\"\n    }\n  ],\n  \"nextPageToken\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:50:33.000Z",
+                              "updatedAt": "2026-07-28T01:50:33.000Z",
+                              "uid": "35240-e3da8601-40ef-4c8e-a1f9-c6a20b6a787d"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:50:33.000Z",
+                          "updatedAt": "2026-07-28T01:50:33.000Z",
+                          "uid": "35240-572f388f-deeb-4065-a471-cf8d5bcc3a3b"
+                        }
+                      ],
+                      "id": "8b25f4d4-91f1-40a9-a173-a5c8ef9d650e",
+                      "createdAt": "2026-07-28T01:50:33.000Z",
+                      "updatedAt": "2026-07-28T01:50:33.000Z",
+                      "uid": "35240-8b25f4d4-91f1-40a9-a173-a5c8ef9d650e"
+                    }
+                  ],
+                  "id": "db57625b-8500-4acf-b66e-6add2027278a",
+                  "createdAt": "2026-07-28T01:50:33.000Z",
+                  "updatedAt": "2026-07-28T01:50:33.000Z",
+                  "uid": "35240-db57625b-8500-4acf-b66e-6add2027278a"
+                }
+              ],
+              "id": "914082f4-a300-4440-99b7-2c8f873acd16",
+              "createdAt": "2026-07-28T01:50:33.000Z",
+              "updatedAt": "2026-07-28T01:50:33.000Z",
+              "uid": "35240-914082f4-a300-4440-99b7-2c8f873acd16"
+            }
+          ],
+          "id": "9f5eeca8-1c94-401f-9f2c-e7a79cf2ef7e",
+          "createdAt": "2026-07-28T01:50:33.000Z",
+          "updatedAt": "2026-07-28T01:50:33.000Z",
+          "uid": "35240-9f5eeca8-1c94-401f-9f2c-e7a79cf2ef7e"
+        }
+      ],
+      "id": "ae0cc4c9-eeb3-401d-b3c2-ad350b215357",
+      "createdAt": "2026-07-28T01:50:33.000Z",
+      "updatedAt": "2026-07-28T01:50:33.000Z",
+      "uid": "35240-ae0cc4c9-eeb3-401d-b3c2-ad350b215357"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/cloud-platform",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://us-central1-aiplatform.googleapis.com/v1"
+    }
+  ]
+}

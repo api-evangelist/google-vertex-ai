@@ -1,0 +1,324 @@
+{
+  "info": {
+    "_postman_id": "e9340e0c-c1da-41ee-b29f-d700659052d0",
+    "name": "Google Vertex AI Datasets Endpoints API",
+    "description": "Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.\n\nContact Support:\n Name: Google Cloud",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:50:31.000Z",
+    "updatedAt": "2026-07-28T01:50:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e9340e0c-c1da-41ee-b29f-d700659052d0"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "{project}",
+          "item": [
+            {
+              "name": "locations",
+              "item": [
+                {
+                  "name": "{location}",
+                  "item": [
+                    {
+                      "name": "endpoints",
+                      "item": [
+                        {
+                          "name": "Google Vertex AI List endpoints",
+                          "id": "7dde49ad-49f4-4cbe-8111-58ed463842f8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:project/locations/:location/endpoints",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":project",
+                                "locations",
+                                ":location",
+                                "endpoints"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a2d496c4-215d-4da6-b1be-0594c8c8e731",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "0db5b444-03f5-42e0-ad3b-9a6e81f7a069",
+                                  "key": "location",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Lists endpoints in the specified project and location."
+                          },
+                          "response": [
+                            {
+                              "id": "014fa7e7-b90b-45f6-845c-69de78364c96",
+                              "name": "Successful response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/endpoints",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "endpoints"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "location"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"endpoints\": [\n    {\n      \"name\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"description\": \"<string>\",\n      \"deployedModels\": [\n        {\n          \"id\": \"<string>\",\n          \"model\": \"<string>\",\n          \"displayName\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"model\": \"<string>\",\n          \"displayName\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"displayName\": \"<string>\",\n      \"description\": \"<string>\",\n      \"deployedModels\": [\n        {\n          \"id\": \"<string>\",\n          \"model\": \"<string>\",\n          \"displayName\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"model\": \"<string>\",\n          \"displayName\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:50:32.000Z",
+                              "updatedAt": "2026-07-28T01:50:32.000Z",
+                              "uid": "35240-014fa7e7-b90b-45f6-845c-69de78364c96"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:50:32.000Z",
+                          "updatedAt": "2026-07-28T01:50:32.000Z",
+                          "uid": "35240-7dde49ad-49f4-4cbe-8111-58ed463842f8"
+                        },
+                        {
+                          "name": "Google Vertex AI Create an endpoint",
+                          "id": "43efc274-eaff-4feb-a4d5-ac716ddbb4e8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"deployedModels\": [\n    {\n      \"id\": \"<string>\",\n      \"model\": \"<string>\",\n      \"displayName\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"model\": \"<string>\",\n      \"displayName\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:project/locations/:location/endpoints",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":project",
+                                "locations",
+                                ":location",
+                                "endpoints"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "141ad3cd-9a30-4fba-987a-6162d0151f9d",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "5b05bf2b-30b2-45a4-a794-b9eb3d19d418",
+                                  "key": "location",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Creates an endpoint for deploying models."
+                          },
+                          "response": [
+                            {
+                              "id": "c90af02d-530c-428c-bf2b-95fe670bab58",
+                              "name": "Successful response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"description\": \"<string>\",\n  \"deployedModels\": [\n    {\n      \"id\": \"<string>\",\n      \"model\": \"<string>\",\n      \"displayName\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"model\": \"<string>\",\n      \"displayName\": \"<string>\"\n    }\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/endpoints",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "endpoints"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "location"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"done\": \"<boolean>\",\n  \"response\": {}\n}",
+                              "createdAt": "2026-07-28T01:50:32.000Z",
+                              "updatedAt": "2026-07-28T01:50:32.000Z",
+                              "uid": "35240-c90af02d-530c-428c-bf2b-95fe670bab58"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:50:32.000Z",
+                          "updatedAt": "2026-07-28T01:50:32.000Z",
+                          "uid": "35240-43efc274-eaff-4feb-a4d5-ac716ddbb4e8"
+                        }
+                      ],
+                      "id": "d004159f-4764-4179-aa63-9ebd960f5308",
+                      "createdAt": "2026-07-28T01:50:32.000Z",
+                      "updatedAt": "2026-07-28T01:50:32.000Z",
+                      "uid": "35240-d004159f-4764-4179-aa63-9ebd960f5308"
+                    }
+                  ],
+                  "id": "47016c58-5cb7-4243-a41b-914b555592d3",
+                  "createdAt": "2026-07-28T01:50:32.000Z",
+                  "updatedAt": "2026-07-28T01:50:32.000Z",
+                  "uid": "35240-47016c58-5cb7-4243-a41b-914b555592d3"
+                }
+              ],
+              "id": "06316565-4d8c-48e3-942e-bd147f2fcce3",
+              "createdAt": "2026-07-28T01:50:32.000Z",
+              "updatedAt": "2026-07-28T01:50:32.000Z",
+              "uid": "35240-06316565-4d8c-48e3-942e-bd147f2fcce3"
+            }
+          ],
+          "id": "cc21e9b5-b6b5-44ce-8266-ad157142c16f",
+          "createdAt": "2026-07-28T01:50:32.000Z",
+          "updatedAt": "2026-07-28T01:50:32.000Z",
+          "uid": "35240-cc21e9b5-b6b5-44ce-8266-ad157142c16f"
+        }
+      ],
+      "id": "227a1545-b7d9-4b43-a999-babb51c2b0c9",
+      "createdAt": "2026-07-28T01:50:32.000Z",
+      "updatedAt": "2026-07-28T01:50:32.000Z",
+      "uid": "35240-227a1545-b7d9-4b43-a999-babb51c2b0c9"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/cloud-platform",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://us-central1-aiplatform.googleapis.com/v1"
+    }
+  ]
+}

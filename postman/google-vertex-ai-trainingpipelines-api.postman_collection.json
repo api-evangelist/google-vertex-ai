@@ -1,0 +1,193 @@
+{
+  "info": {
+    "_postman_id": "b625355a-29b8-4a25-bfbf-9a4098c466a5",
+    "name": "Google Vertex AI Datasets TrainingPipelines API",
+    "description": "Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.\n\nContact Support:\n Name: Google Cloud",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:50:34.000Z",
+    "updatedAt": "2026-07-28T01:50:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b625355a-29b8-4a25-bfbf-9a4098c466a5"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "{project}",
+          "item": [
+            {
+              "name": "locations",
+              "item": [
+                {
+                  "name": "{location}",
+                  "item": [
+                    {
+                      "name": "trainingPipelines",
+                      "item": [
+                        {
+                          "name": "Google Vertex AI List training pipelines",
+                          "id": "dcb8d389-3758-4c5e-8aea-8e622767ee78",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:project/locations/:location/trainingPipelines",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":project",
+                                "locations",
+                                ":location",
+                                "trainingPipelines"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7a5ef7f3-085e-4920-8694-1abc7b1eca50",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "34743518-5ccf-4362-8f59-eba70ba4dc8e",
+                                  "key": "location",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Lists training pipelines in the specified project and location."
+                          },
+                          "response": [
+                            {
+                              "id": "9b3447d2-0bc9-4eb5-81f2-4ed335375708",
+                              "name": "Successful response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/trainingPipelines",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "trainingPipelines"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "location"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"nextPageToken\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:50:34.000Z",
+                              "updatedAt": "2026-07-28T01:50:34.000Z",
+                              "uid": "35240-9b3447d2-0bc9-4eb5-81f2-4ed335375708"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:50:34.000Z",
+                          "updatedAt": "2026-07-28T01:50:34.000Z",
+                          "uid": "35240-dcb8d389-3758-4c5e-8aea-8e622767ee78"
+                        }
+                      ],
+                      "id": "68655d16-4578-4b8f-be08-f74bcb13260f",
+                      "createdAt": "2026-07-28T01:50:34.000Z",
+                      "updatedAt": "2026-07-28T01:50:34.000Z",
+                      "uid": "35240-68655d16-4578-4b8f-be08-f74bcb13260f"
+                    }
+                  ],
+                  "id": "626836c5-0106-4a3e-b8f3-66abc7d74000",
+                  "createdAt": "2026-07-28T01:50:34.000Z",
+                  "updatedAt": "2026-07-28T01:50:34.000Z",
+                  "uid": "35240-626836c5-0106-4a3e-b8f3-66abc7d74000"
+                }
+              ],
+              "id": "f153be77-48ec-448c-a3c7-35e40ef26e8a",
+              "createdAt": "2026-07-28T01:50:34.000Z",
+              "updatedAt": "2026-07-28T01:50:34.000Z",
+              "uid": "35240-f153be77-48ec-448c-a3c7-35e40ef26e8a"
+            }
+          ],
+          "id": "68159738-43e6-4c07-9ce3-d20dcf28e288",
+          "createdAt": "2026-07-28T01:50:34.000Z",
+          "updatedAt": "2026-07-28T01:50:34.000Z",
+          "uid": "35240-68159738-43e6-4c07-9ce3-d20dcf28e288"
+        }
+      ],
+      "id": "1309d045-fd39-44f7-aa3f-ca6dbf3943b6",
+      "createdAt": "2026-07-28T01:50:34.000Z",
+      "updatedAt": "2026-07-28T01:50:34.000Z",
+      "uid": "35240-1309d045-fd39-44f7-aa3f-ca6dbf3943b6"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/cloud-platform",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://us-central1-aiplatform.googleapis.com/v1"
+    }
+  ]
+}

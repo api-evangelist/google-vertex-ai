@@ -1,0 +1,193 @@
+{
+  "info": {
+    "_postman_id": "0d48e32c-2c58-4cae-8cee-ddeb64533d3c",
+    "name": "Google Vertex AI Datasets API",
+    "description": "Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.\n\nContact Support:\n Name: Google Cloud",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:50:30.000Z",
+    "updatedAt": "2026-07-28T01:50:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0d48e32c-2c58-4cae-8cee-ddeb64533d3c"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "{project}",
+          "item": [
+            {
+              "name": "locations",
+              "item": [
+                {
+                  "name": "{location}",
+                  "item": [
+                    {
+                      "name": "datasets",
+                      "item": [
+                        {
+                          "name": "Google Vertex AI List datasets",
+                          "id": "9c95ee6a-de45-4b84-a4e7-07f20c561e09",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:project/locations/:location/datasets",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":project",
+                                "locations",
+                                ":location",
+                                "datasets"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a646be8c-ef22-48a8-804c-bea303a4d40e",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "1b036583-4be0-48d4-ad86-73fdd1bdcd01",
+                                  "key": "location",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Lists datasets in the specified project and location."
+                          },
+                          "response": [
+                            {
+                              "id": "e740bc64-0c58-4b89-a0c7-2d30396ceae8",
+                              "name": "Successful response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:project/locations/:location/datasets",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":project",
+                                    "locations",
+                                    ":location",
+                                    "datasets"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "location"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"nextPageToken\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:50:30.000Z",
+                              "updatedAt": "2026-07-28T01:50:30.000Z",
+                              "uid": "35240-e740bc64-0c58-4b89-a0c7-2d30396ceae8"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:50:30.000Z",
+                          "updatedAt": "2026-07-28T01:50:30.000Z",
+                          "uid": "35240-9c95ee6a-de45-4b84-a4e7-07f20c561e09"
+                        }
+                      ],
+                      "id": "fcfc017e-1e84-440a-998b-06597456591d",
+                      "createdAt": "2026-07-28T01:50:30.000Z",
+                      "updatedAt": "2026-07-28T01:50:30.000Z",
+                      "uid": "35240-fcfc017e-1e84-440a-998b-06597456591d"
+                    }
+                  ],
+                  "id": "f93805b2-3cb2-46d9-98b5-7c19c2fbf3cb",
+                  "createdAt": "2026-07-28T01:50:30.000Z",
+                  "updatedAt": "2026-07-28T01:50:30.000Z",
+                  "uid": "35240-f93805b2-3cb2-46d9-98b5-7c19c2fbf3cb"
+                }
+              ],
+              "id": "4474f4c6-6a30-48f4-b17c-1d1910a953bf",
+              "createdAt": "2026-07-28T01:50:30.000Z",
+              "updatedAt": "2026-07-28T01:50:30.000Z",
+              "uid": "35240-4474f4c6-6a30-48f4-b17c-1d1910a953bf"
+            }
+          ],
+          "id": "ed2b2b30-ad98-42b4-b0a3-3cd45dbea57d",
+          "createdAt": "2026-07-28T01:50:30.000Z",
+          "updatedAt": "2026-07-28T01:50:30.000Z",
+          "uid": "35240-ed2b2b30-ad98-42b4-b0a3-3cd45dbea57d"
+        }
+      ],
+      "id": "fd8acb03-2fba-4296-9297-1aebb00ac511",
+      "createdAt": "2026-07-28T01:50:30.000Z",
+      "updatedAt": "2026-07-28T01:50:30.000Z",
+      "uid": "35240-fd8acb03-2fba-4296-9297-1aebb00ac511"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/cloud-platform",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://us-central1-aiplatform.googleapis.com/v1"
+    }
+  ]
+}

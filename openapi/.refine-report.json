@@ -1,0 +1,22 @@
+{
+  "provider": "google-vertex-ai",
+  "sources": [
+    "google-vertex-ai-datasets-api-openapi.yml",
+    "google-vertex-ai-endpoints-api-openapi.yml",
+    "google-vertex-ai-models-api-openapi.yml",
+    "google-vertex-ai-predictions-api-openapi.yml",
+    "google-vertex-ai-trainingpipelines-api-openapi.yml"
+  ],
+  "outputs": [
+    "google-vertex-ai-datasets-api-openapi.yml",
+    "google-vertex-ai-endpoints-api-openapi.yml",
+    "google-vertex-ai-models-api-openapi.yml",
+    "google-vertex-ai-predictions-api-openapi.yml",
+    "google-vertex-ai-trainingpipelines-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
