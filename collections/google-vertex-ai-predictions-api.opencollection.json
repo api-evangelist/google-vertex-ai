@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Vertex AI Datasets Predictions API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Predictions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Vertex AI Run a prediction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-central1-aiplatform.googleapis.com/v1/projects/:project/locations/:location/endpoints/:endpoint:predict",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpoint",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs a prediction against a deployed model on the specified endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

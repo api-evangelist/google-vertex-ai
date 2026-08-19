@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Vertex AI Datasets Models API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Vertex AI List models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us-central1-aiplatform.googleapis.com/v1/projects/:project/locations/:location/models",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists models in the specified project and location."
+        },
+        {
+          "info": {
+            "name": "Google Vertex AI Get a model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us-central1-aiplatform.googleapis.com/v1/projects/:project/locations/:location/models/:model",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Gets a model by resource name."
+        },
+        {
+          "info": {
+            "name": "Google Vertex AI Delete a model",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://us-central1-aiplatform.googleapis.com/v1/projects/:project/locations/:location/models/:model",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a model and all of its versions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

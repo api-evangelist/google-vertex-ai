@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Vertex AI Datasets Endpoints API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Vertex AI List endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://us-central1-aiplatform.googleapis.com/v1/projects/:project/locations/:location/endpoints",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists endpoints in the specified project and location."
+        },
+        {
+          "info": {
+            "name": "Google Vertex AI Create an endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://us-central1-aiplatform.googleapis.com/v1/projects/:project/locations/:location/endpoints",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an endpoint for deploying models."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
