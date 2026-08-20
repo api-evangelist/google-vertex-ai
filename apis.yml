@@ -26,6 +26,12 @@ tags:
 - Artificial Intelligence
 - Generative AI
 - Google Cloud
+- Machine-Learning
+- ML Models
+tags_raw:
+- Artificial Intelligence
+- Generative AI
+- Google Cloud
 - Machine Learning
 - ML Models
 apis:
@@ -56,7 +62,8 @@ apis:
   description: Manage prediction endpoints
   humanURL: https://cloud.google.com/vertex-ai/docs
   baseURL: https://us-central1-aiplatform.googleapis.com/v1
-  tags:
+  tags: []
+  tags_raw:
   - Endpoints
   properties:
   - type: OpenAPI
