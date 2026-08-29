@@ -3,6 +3,18 @@ name: Google Vertex AI
 description: Google Vertex AI is a machine learning platform that enables developers
   and data scientists to build, deploy, and scale ML models, including generative
   AI models, with pre-trained APIs, AutoML, and custom training capabilities.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
