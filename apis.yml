@@ -159,6 +159,8 @@ apis:
   - type: GraphQL
     url: graphql/google-vertex-ai-graphql.md
 common:
+- type: Website
+  url: https://www.google.com/
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/google-vertex-ai/overview
 - type: AgenticAccess
@@ -202,3 +204,5 @@ integrations:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-parent: google
+x-relationship: product
