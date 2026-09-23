@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Google Vertex AI Datasets Endpoints API
+  title: Google Vertex AI Endpoints API
   description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
   version: v1
   contact:

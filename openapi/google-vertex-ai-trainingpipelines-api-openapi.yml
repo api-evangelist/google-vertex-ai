@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Google Vertex AI Datasets Training Pipelines API
+  title: Google Vertex AI Training Pipelines API
   description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
   version: v1
   contact:

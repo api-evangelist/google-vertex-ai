@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Google Vertex AI Datasets Models API
+  title: Google Vertex AI Models API
   description: Provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
   version: v1
   contact:
@@ -102,6 +102,15 @@ paths:
                 $ref: '#/components/schemas/Operation'
 components:
   schemas:
+    Operation:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+        response:
+          type: object
     Model:
       type: object
       properties:
@@ -138,15 +147,6 @@ components:
         updateTime:
           type: string
           format: date-time
-    Operation:
-      type: object
-      properties:
-        name:
-          type: string
-        done:
-          type: boolean
-        response:
-          type: object
     ModelList:
       type: object
       properties:
