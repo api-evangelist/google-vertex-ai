@@ -38,7 +38,7 @@ tags:
 - Artificial Intelligence
 - Generative AI
 - Google Cloud
-- Machine-Learning
+- Machine Learning
 - ML Models
 tags_raw:
 - Artificial Intelligence
@@ -46,6 +46,7 @@ tags_raw:
 - Google Cloud
 - Machine Learning
 - ML Models
+- Machine-Learning
 apis:
 - aid: google-vertex-ai:google-vertex-ai-datasets-api
   name: Google Vertex AI Datasets API
@@ -67,8 +68,6 @@ apis:
     url: json-schema/json-schema.yml
   - type: JSONLDContext
     url: json-ld/json-ld.yml
-  - type: GraphQL
-    url: graphql/google-vertex-ai-graphql.md
 - aid: google-vertex-ai:google-vertex-ai-endpoints-api
   name: Google Vertex AI Endpoints API
   description: Manage prediction endpoints
@@ -90,8 +89,6 @@ apis:
     url: json-schema/json-schema.yml
   - type: JSONLDContext
     url: json-ld/json-ld.yml
-  - type: GraphQL
-    url: graphql/google-vertex-ai-graphql.md
 - aid: google-vertex-ai:google-vertex-ai-models-api
   name: Google Vertex AI Models API
   description: Manage ML models
@@ -112,8 +109,6 @@ apis:
     url: json-schema/json-schema.yml
   - type: JSONLDContext
     url: json-ld/json-ld.yml
-  - type: GraphQL
-    url: graphql/google-vertex-ai-graphql.md
 - aid: google-vertex-ai:google-vertex-ai-predictions-api
   name: Google Vertex AI Predictions API
   description: Run predictions using deployed models
@@ -134,8 +129,6 @@ apis:
     url: json-schema/json-schema.yml
   - type: JSONLDContext
     url: json-ld/json-ld.yml
-  - type: GraphQL
-    url: graphql/google-vertex-ai-graphql.md
 - aid: google-vertex-ai:google-vertex-ai-trainingpipelines-api
   name: Google Vertex AI TrainingPipelines API
   description: Manage training pipelines
@@ -156,8 +149,6 @@ apis:
     url: json-schema/json-schema.yml
   - type: JSONLDContext
     url: json-ld/json-ld.yml
-  - type: GraphQL
-    url: graphql/google-vertex-ai-graphql.md
 common:
 - type: Website
   url: https://www.google.com/
