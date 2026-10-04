@@ -1,0 +1,56 @@
+slug: google-vertex-ai
+provider: Google Vertex AI
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Models
+  spec_file: google-vertex-ai-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: 'listModels / getModel / deleteModel; schemas: Model, ModelList; vendor: "build, deploy, and
+    scale ML models"'
+  reason: Direct CRUD over the ML model registry of a machine learning platform, which is exactly AI/ML
+    model lifecycle and MLOps management. No competing reading of "Models" fits this context.
+- tag: Predictions
+  spec_file: google-vertex-ai-predictions-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /projects/{project}/locations/{location}/endpoints/{endpoint}:predict — 'Run a prediction';
+    schemas PredictRequest, PredictResponse
+  reason: Serving inference from deployed ML models on an ML platform is part of the AI/ML model lifecycle
+    (MLOps), which maps to Artificial Intelligence Management under Information & Data Management.
+- tag: TrainingPipelines
+  spec_file: google-vertex-ai-trainingpipelines-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: 'GET /projects/{project}/locations/{location}/trainingPipelines — ''List training pipelines'';
+    description: ''orchestrate ML pipelines on Google Cloud'''
+  reason: Model training pipeline orchestration is core AI/ML model lifecycle / MLOps tooling, mapping
+    to Artificial Intelligence Management.
+- tag: Endpoints
+  spec_file: google-vertex-ai-endpoints-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.78
+  evidence: 'POST /projects/{project}/locations/{location}/endpoints  createEndpoint  Create an endpoint;
+    schemas: Endpoint, EndpointList, Operation'
+  reason: Vertex AI endpoints are model-serving deployment targets, i.e. the MLOps serving stage of the
+    AI/ML model lifecycle. Slight ambiguity with generic IT infrastructure provisioning keeps this below
+    0.85.
