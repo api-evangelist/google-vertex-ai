@@ -73,15 +73,15 @@ paths:
                 $ref: '#/components/schemas/Operation'
 components:
   schemas:
-    Operation:
+    EndpointList:
       type: object
       properties:
-        name:
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Endpoint'
+        nextPageToken:
           type: string
-        done:
-          type: boolean
-        response:
-          type: object
     Endpoint:
       type: object
       properties:
@@ -104,15 +104,15 @@ components:
                 type: string
               displayName:
                 type: string
-    EndpointList:
+    Operation:
       type: object
       properties:
-        endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/Endpoint'
-        nextPageToken:
+        name:
           type: string
+        done:
+          type: boolean
+        response:
+          type: object
   securitySchemes:
     oauth2:
       type: oauth2

@@ -54,6 +54,16 @@ paths:
                 $ref: '#/components/schemas/PredictResponse'
 components:
   schemas:
+    PredictResponse:
+      type: object
+      properties:
+        predictions:
+          type: array
+          items:
+            type: object
+          description: Prediction results
+        deployedModelId:
+          type: string
     PredictRequest:
       type: object
       properties:
@@ -65,16 +75,6 @@ components:
         parameters:
           type: object
           description: Parameters for the prediction
-    PredictResponse:
-      type: object
-      properties:
-        predictions:
-          type: array
-          items:
-            type: object
-          description: Prediction results
-        deployedModelId:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2
