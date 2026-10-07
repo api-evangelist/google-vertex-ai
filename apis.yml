@@ -150,6 +150,8 @@ apis:
   - type: JSONLDContext
     url: json-ld/json-ld.yml
 common:
+- type: Plans
+  url: plans/google-vertex-ai-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/google-vertex-ai-capability-edges.yml
   name: Google Vertex AI Business Capability Map
