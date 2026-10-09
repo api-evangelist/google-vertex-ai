@@ -1,151 +1,180 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Google Vertex AI
-providerId: google-vertex-ai
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Artificial Intelligence
-  - Generative AI
-  - Google Cloud
-  - Machine Learning
-  - ML Models
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+sources:
+- https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+- https://cloud.google.com/vertex-ai/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Extensive hourly machine/accelerator/disk rate card for Gemini Enterprise Agent Platform (formerly
+  Vertex AI), plus agent compute/memory/storage SKUs with free tiers and 1-year/3-year Flexible Savings
+  Plan discount columns. Only a representative subset of the hundreds of listed SKU prices is captured.
+plan_count: 10
+currency: USD
 plans:
-  - id: google-vertex-ai-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Google Vertex AI API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Google Vertex AI API
-  - id: google-vertex-ai-pro
-    name: Professional
-    type: paid
-    description: Production tier for Google Vertex AI. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Google Vertex AI API
-  - id: google-vertex-ai-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Google Vertex AI. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://us-central1-aiplatform.googleapis.com/v1
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Google Vertex AI API
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: AutoML image classification training
+  price_text: $3.465 / 1 hour
+  price: 3.465
+  currency: USD
+  period: per-use
+  unit: hour
+- name: AutoML image Training (Edge on-device model)
+  price_text: $18.00 / 1 hour
+  price: 18.0
+  currency: USD
+  period: per-use
+  unit: hour
+- name: Tabular classification/regression training (per node hour)
+  price_text: $21.252 / 1 hour
+  price: 21.252
+  currency: USD
+  period: per-use
+  unit: node hour
+- name: ARIMA+ prediction
+  price_text: $5.00 / 1,000 count
+  price: 5.0
+  currency: USD
+  period: per-use
+  unit: 1,000 count
+- name: Agent Compute (above free tier)
+  price_text: $0.085 / 1 hour, per 1 month / account
+  price: 0.085
+  currency: USD
+  period: per-use
+  unit: vCPU-hour
+  included_quota: 0 hour to 50 hour $0.00 (Free) / 1 hour, per 1 month / account
+- name: Agent Memory (RAM)
+  price_text: $0.009 / 1 gibibyte hour, per 1 month / account
+  price: 0.009
+  currency: USD
+  period: per-use
+  unit: GiB-hour
+  included_quota: 0 gibibyte hour to 100 gibibyte hour free
+- name: Agent Storage
+  price_text: $0.000410959 / 1 gibibyte hour, per 1 month / account
+  price: 0.000410959
+  currency: USD
+  period: per-use
+  unit: GiB-hour
+  included_quota: 0 gibibyte month to 1 gibibyte month free
+- name: Custom training n1-standard-4
+  price_text: $0.21849885 / 1 hour
+  price: 0.21849885
+  currency: USD
+  period: per-use
+  unit: hour
+- name: Accelerator NVIDIA_H100_80GB (training)
+  price_text: $9.79655057 / 1 hour
+  price: 9.79655057
+  currency: USD
+  period: per-use
+  unit: hour
+- name: Gen AI Evals computation-based metrics (input)
+  price_text: $0.00003 per 1k characters
+  price: 3.0e-05
+  currency: USD
+  period: per-use
+  unit: 1k characters
+rate_limit_statements:
+- All use is subject to the Agent Platform quota policy.
+- 'Warning: Your training jobs are limited by the Agent Platform quota policy.'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - subscription
+  units:
+  - compute
+  - data
+  plans:
+  - name: AutoML image classification training
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: AutoML image Training (Edge on-device model)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Tabular classification/regression training (per node hour)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: ARIMA+ prediction
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Agent Compute (above free tier)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Agent Memory (RAM)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: Agent Storage
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: Custom training n1-standard-4
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Accelerator NVIDIA_H100_80GB (training)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Gen AI Evals computation-based metrics (input)
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
