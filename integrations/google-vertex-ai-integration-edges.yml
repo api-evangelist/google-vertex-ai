@@ -65,12 +65,12 @@ edges:
   - provider
   router_signals:
     provider:
-      models: 43
+      models: 44
       router_ids:
       - google-vertex
       - vertex-anthropic
       - vertex-openai
-      tools_share: 0.67
+      tools_share: 0.68
       structured_output_share: 0.77
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
