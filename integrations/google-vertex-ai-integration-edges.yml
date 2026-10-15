@@ -11,7 +11,7 @@ edges:
   - inference-host
   router_signals:
     inference-host:
-      models: 55
+      models: 57
       router_ids:
       - Google
       tools_share: 0.89
@@ -31,7 +31,7 @@ edges:
   - provider
   router_signals:
     provider:
-      models: 209
+      models: 211
       router_ids:
       - vertex_ai
       - vertex_ai-ai21_models
@@ -48,7 +48,7 @@ edges:
       - vertex_ai-text-models
       - vertex_ai-video-models
       - vertex_ai-zai_models
-      tools_share: 0.81
+      tools_share: 0.82
       structured_output_share: 0.5
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
@@ -157,6 +157,31 @@ edges:
   matched_by: verified-domain-table
   detected_by: sweep-rag-vector.py
   first_seen: '2026-10-15'
+- partner_name: Zapier
+  partner: zapier
+  partner_match: aggregator
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://zapier.com/apps/google-vertex-ai/integrations
+  category: null
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: Google Vertex AI
+    matched_domain: google.com
+    matched_by: domain+name-among-holders
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: google-vertex-ai
+    beta: false
+    builder: unknown (not in the directory record)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 generated: '2026-10-13'
 method: searched
 checked:
@@ -167,3 +192,6 @@ checked:
 - https://github.com/langchain-ai/langchain/tree/master/libs/partners
 - https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
 - https://openrouter.ai/api/v1/models
+- https://zapier.com/api/v4/apps/
+source:
+- https://zapier.com/api/v4/apps/
