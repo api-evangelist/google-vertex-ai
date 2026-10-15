@@ -58,3 +58,25 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
+- slug: google-vertex-ai-llamaindex
+  label: LlamaIndex
+  partner: llamaindex
+  partner_name: LlamaIndex
+  type: coverage
+  channel: partner-built
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/vector_stores/llama-index-vector-stores-google
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
+- slug: google-vertex-ai-langchain
+  label: LangChain
+  partner: langchain
+  partner_name: LangChain
+  type: coverage
+  channel: partner-built
+  evidence: https://github.com/langchain-ai/langchain-google
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
