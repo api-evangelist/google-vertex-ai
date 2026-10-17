@@ -102,6 +102,24 @@ paths:
                 $ref: '#/components/schemas/Operation'
 components:
   schemas:
+    Operation:
+      type: object
+      properties:
+        name:
+          type: string
+        done:
+          type: boolean
+        response:
+          type: object
+    ModelList:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+        nextPageToken:
+          type: string
     Model:
       type: object
       properties:
@@ -138,24 +156,6 @@ components:
         updateTime:
           type: string
           format: date-time
-    Operation:
-      type: object
-      properties:
-        name:
-          type: string
-        done:
-          type: boolean
-        response:
-          type: object
-    ModelList:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/Model'
-        nextPageToken:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2
