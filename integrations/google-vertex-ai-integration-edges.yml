@@ -1,116 +1,4 @@
 edges:
-- partner_name: OpenRouter
-  partner: openrouter
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://openrouter.ai/api/v1/models
-  coverage_role:
-  - inference-host
-  router_signals:
-    inference-host:
-      models: 57
-      router_ids:
-      - Google
-      tools_share: 0.89
-      structured_output_share: 1.0
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
-- partner_name: LiteLLM
-  partner: litellm
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
-  coverage_role:
-  - provider
-  router_signals:
-    provider:
-      models: 211
-      router_ids:
-      - vertex_ai
-      - vertex_ai-ai21_models
-      - vertex_ai-anthropic_models
-      - vertex_ai-deepseek_models
-      - vertex_ai-embedding-models
-      - vertex_ai-language-models
-      - vertex_ai-llama_models
-      - vertex_ai-minimax_models
-      - vertex_ai-mistral_models
-      - vertex_ai-moonshot_models
-      - vertex_ai-openai_models
-      - vertex_ai-qwen_models
-      - vertex_ai-text-models
-      - vertex_ai-video-models
-      - vertex_ai-zai_models
-      tools_share: 0.82
-      structured_output_share: 0.5
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
-- partner_name: LLM Gateway
-  partner: llmgateway-io
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://api.llmgateway.io/v1/models
-  coverage_role:
-  - provider
-  router_signals:
-    provider:
-      models: 44
-      router_ids:
-      - google-vertex
-      - vertex-anthropic
-      - vertex-openai
-      tools_share: 0.68
-      structured_output_share: 0.77
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
-- partner_name: Portkey
-  partner: portkey
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/Portkey-AI/gateway/tree/main/src/providers/google-vertex-ai
-  coverage_role:
-  - provider
-  router_signals:
-    provider:
-      models: null
-      router_ids:
-      - google-vertex-ai
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
-- partner_name: Cloudflare AI Gateway
-  partner: cloudflare-ai-gateway
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/cloudflare/cloudflare-docs/blob/production/src/content/docs/ai-gateway/usage/providers/vertex.mdx
-  coverage_role:
-  - provider
-  router_signals:
-    provider:
-      models: null
-      router_ids:
-      - vertex
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
 - partner_name: LlamaIndex
   partner: llamaindex
   partner_match: framework
@@ -182,6 +70,118 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: OpenRouter
+  partner: openrouter
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://openrouter.ai/api/v1/models
+  coverage_role:
+  - inference-host
+  router_signals:
+    inference-host:
+      models: 57
+      router_ids:
+      - Google
+      tools_share: 0.89
+      structured_output_share: 1.0
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: LiteLLM
+  partner: litellm
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: 212
+      router_ids:
+      - vertex_ai
+      - vertex_ai-ai21_models
+      - vertex_ai-anthropic_models
+      - vertex_ai-deepseek_models
+      - vertex_ai-embedding-models
+      - vertex_ai-language-models
+      - vertex_ai-llama_models
+      - vertex_ai-minimax_models
+      - vertex_ai-mistral_models
+      - vertex_ai-moonshot_models
+      - vertex_ai-openai_models
+      - vertex_ai-qwen_models
+      - vertex_ai-text-models
+      - vertex_ai-video-models
+      - vertex_ai-zai_models
+      tools_share: 0.82
+      structured_output_share: 0.51
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: LLM Gateway
+  partner: llmgateway-io
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://api.llmgateway.io/v1/models
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: 42
+      router_ids:
+      - google-vertex
+      - vertex-anthropic
+      - vertex-openai
+      tools_share: 0.67
+      structured_output_share: 0.76
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: Portkey
+  partner: portkey
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/Portkey-AI/gateway/tree/main/src/providers/google-vertex-ai
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: null
+      router_ids:
+      - google-vertex-ai
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: Cloudflare AI Gateway
+  partner: cloudflare-ai-gateway
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/cloudflare/cloudflare-docs/blob/production/src/content/docs/ai-gateway/usage/providers/vertex.mdx
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: null
+      router_ids:
+      - vertex
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
 generated: '2026-10-13'
 method: searched
 checked:
