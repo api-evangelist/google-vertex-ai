@@ -1,4 +1,4 @@
-# Google Vertex AI (google-vertex-ai)
+# Google Vertex AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,68 +66,156 @@
 
 Google Vertex AI is a machine learning platform that enables developers and data scientists to build, deploy, and scale ML models, including generative AI models, with pre-trained APIs, AutoML, and custom training capabilities.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/google-vertex-ai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/google-vertex-ai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Generative AI · Google Cloud · Machine Learning · ML Models
 
-## Scope
+## Google Vertex AI on APIs.io
 
-- **Type:** Index
+Everything profiled for Google Vertex AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/google-vertex-ai/](https://apis.io/providers/google-vertex-ai/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Artificial Intelligence
-- Generative AI
-- Google Cloud
-- Machine Learning
-- ML Models
+- [Google Vertex AI Datasets API](https://apis.io/apis/google-vertex-ai/google-vertex-ai-datasets-api/) — Manage training datasets
+- [Google Vertex AI Endpoints API](https://apis.io/apis/google-vertex-ai/google-vertex-ai-endpoints-api/) — Manage prediction endpoints
+- [Google Vertex AI Models API](https://apis.io/apis/google-vertex-ai/google-vertex-ai-models-api/) — Manage ML models
+- [Google Vertex AI Predictions API](https://apis.io/apis/google-vertex-ai/google-vertex-ai-predictions-api/) — Run predictions using deployed models
+- [Google Vertex AI TrainingPipelines API](https://apis.io/apis/google-vertex-ai/google-vertex-ai-trainingpipelines-api/) — Manage training pipelines
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-13
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Google Vertex AI API
+GraphQL schemas.
 
-The Google Vertex AI API provides programmatic access to build, deploy, and manage machine learning models, run predictions, manage datasets, and orchestrate ML pipelines on Google Cloud.
+- [Moved to /providers/google-vertex-ai/](https://apis.io/graphqls/google-vertex-ai/google-vertex-ai-graphql/)
 
-- **Human URL:** [https://cloud.google.com/vertex-ai/docs](https://cloud.google.com/vertex-ai/docs)
-- **Base URL:** `https://us-central1-aiplatform.googleapis.com/v1`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Machine Learning
-- Models
-- Predictions
-- Training
+- [Google Vertex Ai Agentic Access](https://apis.io/agentic-access/google-vertex-ai/google-vertex-ai-agentic-access/)
 
-#### Properties
+#### Collections (11)
 
-- [Documentation](https://cloud.google.com/vertex-ai/docs/reference/rest)
-- [OpenAPI](openapi/openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://cloud.google.com/vertex-ai/docs/general/authentication)
-- [Getting Started](https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform)
-- [JSON Schema](json-schema/json-schema.yml) — [JSON Schema](https://json-schema.org/specification)
-- [J S O N L D Context](json-ld/json-ld.yml)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Google Vertex AI Datasets API](https://apis.io/collections/google-vertex-ai/open-google-vertex-ai-datasets-api/)
+- [Google Vertex AI Datasets Endpoints API](https://apis.io/collections/google-vertex-ai/open-google-vertex-ai-endpoints-api/)
+- [Google Vertex AI Datasets Models API](https://apis.io/collections/google-vertex-ai/open-google-vertex-ai-models-api/)
+- [Google Vertex AI Datasets Predictions API](https://apis.io/collections/google-vertex-ai/open-google-vertex-ai-predictions-api/)
+- [Google Vertex AI Datasets TrainingPipelines API](https://apis.io/collections/google-vertex-ai/open-google-vertex-ai-trainingpipelines-api/)
+- [Google Vertex AI API](https://apis.io/collections/google-vertex-ai/open-openapi/)
+- [Google Vertex AI Datasets API](https://apis.io/collections/google-vertex-ai/postman-google-vertex-ai-datasets-api/)
+- [Google Vertex AI Datasets Endpoints API](https://apis.io/collections/google-vertex-ai/postman-google-vertex-ai-endpoints-api/)
+- [Google Vertex AI Datasets Models API](https://apis.io/collections/google-vertex-ai/postman-google-vertex-ai-models-api/)
+- [Google Vertex AI Datasets Predictions API](https://apis.io/collections/google-vertex-ai/postman-google-vertex-ai-predictions-api/)
+- [Google Vertex AI Datasets TrainingPipelines API](https://apis.io/collections/google-vertex-ai/postman-google-vertex-ai-trainingpipelines-api/)
 
-- [GitHub Organization](https://github.com/googleapis)
-- [Portal](https://cloud.google.com/vertex-ai)
-- [Getting Started](https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform)
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Google Vertex AI — jsonschema rules](https://apis.io/rules/google-vertex-ai/google-vertex-ai-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Google Vertex Ai Authentication](https://apis.io/security/google-vertex-ai/google-vertex-ai-authentication/)
+- [Google Vertex Ai Domain Security](https://apis.io/security/google-vertex-ai/google-vertex-ai-domain-security/)
+- [Google Vertex Ai Vulnerability Disclosure](https://apis.io/security/google-vertex-ai/google-vertex-ai-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Google Vertex Ai Scopes](https://apis.io/scopes/google-vertex-ai/google-vertex-ai-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Google Vertex Ai Plans Pricing](https://apis.io/plans/google-vertex-ai/google-vertex-ai-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Google Vertex Ai Rate Limits](https://apis.io/rate-limits/google-vertex-ai/google-vertex-ai-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Google Vertex Ai Finops](https://apis.io/finops/google-vertex-ai/google-vertex-ai-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.google.com/)
 - [Documentation](https://cloud.google.com/vertex-ai/docs)
-- [Authentication](https://cloud.google.com/vertex-ai/docs/general/authentication)
+- [Getting started](https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform)
 - [Pricing](https://cloud.google.com/vertex-ai/pricing)
-- [Terms of Service](https://cloud.google.com/terms)
-- [Privacy Policy](https://policies.google.com/privacy)
-- [Status Page](https://status.cloud.google.com/)
 - [Support](https://cloud.google.com/vertex-ai/docs/support)
-- [J S O N L D Context](json-ld/json-ld.yml)
-- [Integrations](https://cloud.google.com/marketplace)
+- [Blog](https://docs.cloud.google.com/feeds/vertex-ai-release-notes.xml)
+- [Terms of service](https://cloud.google.com/terms)
+- [Privacy policy](https://policies.google.com/privacy)
+- [GitHub](https://github.com/googleapis)
+- [Status](https://status.cloud.google.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 46.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 52.7 |
+| Contract governance | 9.8 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 34.5 |
+| Access clarity | 63.2 |
+
+**Agent readiness 24.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 32.7** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/google-vertex-ai/](https://apis.io/providers/google-vertex-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Google Vertex AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/google-vertex-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
